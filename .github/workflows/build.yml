@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-20.04
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
       with:
         fetch-depth: 0
         path: ./build
@@ -34,10 +34,10 @@ jobs:
         sleep 1
         ls -l device/rockchip/common/
         sleep 1
-        cat device/rockchip/common/build.sh
+        cat build.sh
     
     - name: build U-boot
       run: |
-        bash device/rockchip/common/build.sh device/rockchip/rv1126_rv1109/vision-rv1126.mk
-        bash device/rockchip/common/build.sh uboot
+        bash build.sh device/rockchip/rv1126_rv1109/vision-rv1126.mk
+        bash build.sh uboot
 
