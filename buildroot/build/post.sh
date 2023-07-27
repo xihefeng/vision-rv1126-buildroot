@@ -10,10 +10,10 @@ if [[ $RK_ROOTFS_TYPE -eq "squashfs" ]]; then
 	ssh-keygen -A -f $(pwd)/output/$RK_CFG_BUILDROOT/target
 fi
 
-echo "Build KERNEL modules"
-cd $BUILDROOT/../kernel
-make ARCH=arm  modules_install INSTALL_MOD_PATH="../deploy/modules"
-cd $BUILDROOT
+# echo "Build KERNEL modules"
+# cd $BUILDROOT/../kernel
+# make ARCH=arm  modules_install INSTALL_MOD_PATH="../deploy/modules"
+# cd $BUILDROOT
 
 KERNEL_MODULES_DIR=$BUILDROOT/../deploy/modules/lib/modules
 if [ -d "$KERNEL_MODULES_DIR" ];
