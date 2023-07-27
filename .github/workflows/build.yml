@@ -27,9 +27,13 @@ jobs:
       run: |
         ls -l
         pwd
+        sudo chmod +x *.sh
     - name: check dir
       working-directory: ./build
-      run: cat build.sh 
+      run: |
+        ls -l
+        sleep 1
+        cat build.sh 
     
 #     - name: build U-boot
 #       run: |
