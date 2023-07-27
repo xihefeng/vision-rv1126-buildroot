@@ -13,16 +13,22 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+        path: build
+        
     - name: Install depends
       run: |
         sudo apt update
         sudo apt-get install -y expect-dev python2 git git-lfs expect-dev debianutils sed make binutils build-essential gcc g++ bash patch gzip bzip2 perl tar cpio unzip rsync file bc git device-tree-compiler
     
     - name: check dir
+      working-directory: ./build
       run: |
         ls -l
         pwd
     - name: check dir
+      working-directory: ./build
       run: cat build.sh 
     
 #     - name: build U-boot
