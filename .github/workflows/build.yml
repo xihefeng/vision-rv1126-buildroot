@@ -37,6 +37,7 @@ jobs:
         cat build.sh
     
     - name: build U-boot
+      working-directory: ./build
       run: |
         bash build.sh device/rockchip/rv1126_rv1109/vision-rv1126.mk
         bash build.sh uboot
