@@ -1,2 +1,7 @@
 .repo/
 .vscode/
+br.log
+kernel2/
+IMAGE/
+deploy/
+rockdev/
