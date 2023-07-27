@@ -22,23 +22,21 @@ jobs:
         sudo apt update
         sudo apt-get install -y expect-dev python2 git git-lfs expect-dev debianutils sed make binutils build-essential gcc g++ bash patch gzip bzip2 perl tar cpio unzip rsync file bc git device-tree-compiler
     
-    - name: check dir
-      working-directory: ./build
-      run: |
-        ls -l
-        pwd
-    - name: check dir
-      working-directory: ./build
-      run: |
-        ls -l
-        sleep 1
-        ls -l device/rockchip/common/
-        sleep 1
-        cat build.sh
-    
     - name: build U-boot
       working-directory: ./build
       run: |
         bash build.sh device/rockchip/rv1126_rv1109/vision-rv1126.mk
         bash build.sh uboot
+        
+    - name: build Kernel
+      working-directory: ./build
+      run: |
+        bash build.sh device/rockchip/rv1126_rv1109/vision-rv1126.mk
+        bash build.sh kernel
+        
+    - name: Upload SDK from GitHub Action
+      uses: actions/upload-artifact@v3
+      with: 
+       name: artifacts
+       path: ./build/rockdev
 
