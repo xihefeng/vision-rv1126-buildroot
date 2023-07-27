@@ -17,8 +17,14 @@ jobs:
       run: |
         sudo apt update
         sudo apt-get install -y expect-dev python2 git git-lfs expect-dev debianutils sed make binutils build-essential gcc g++ bash patch gzip bzip2 perl tar cpio unzip rsync file bc git device-tree-compiler
+    
+    - name: check dir
+      run: |
+        ls -l
+        pwd
+    
     - name: build U-boot
       run: |
-        ./build.sh device/rockchip/rv1126_rv1109/vision-rv1126.mk
-        ./build.sh uboot
+        bash build.sh device/rockchip/rv1126_rv1109/vision-rv1126.mk
+        bash build.sh uboot
 
