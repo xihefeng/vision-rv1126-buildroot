@@ -22,9 +22,11 @@ jobs:
       run: |
         ls -l
         pwd
+    - name: check dir
+      run: cat build.sh 
     
-    - name: build U-boot
-      run: |
-        bash build.sh device/rockchip/rv1126_rv1109/vision-rv1126.mk
-        bash build.sh uboot
+#     - name: build U-boot
+#       run: |
+#         bash vision-rv1126/build.sh device/rockchip/rv1126_rv1109/vision-rv1126.mk
+#         bash vision-rv1126/build.sh uboot
 
