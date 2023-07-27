@@ -1,0 +1,189 @@
+23:21:13 	Upgrade Tool v1.65
+
+23:21:13 	Current process in /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/tools/linux/Linux_Upgrade_Tool/Linux_Upgrade_Tool
+23:21:13 	Using /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/tools/linux/Linux_Upgrade_Tool/Linux_Upgrade_Tool/config.ini
+23:21:13 	Command Line: /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/tools/linux/Linux_Upgrade_Tool/Linux_Upgrade_Tool/upgrade_tool ul -noreset /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/rockdev/MiniLoaderAll.bin
+23:21:13 	Current Device Location ID:122
+23:21:13 	Command mode out
+23:21:13 	Upgrade Tool v1.65
+
+23:21:13 	Current process in /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/tools/linux/Linux_Upgrade_Tool/Linux_Upgrade_Tool
+23:21:13 	Using /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/tools/linux/Linux_Upgrade_Tool/Linux_Upgrade_Tool/config.ini
+23:21:13 	Command Line: /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/tools/linux/Linux_Upgrade_Tool/Linux_Upgrade_Tool/upgrade_tool di -p /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/rockdev/parameter.txt
+23:21:13 	Current Device Location ID:122
+23:21:13 	Error:InitializeUsb-->open device failed,err=-3
+23:21:13 	Info:start download,directlba=0,first4access=0,gpt=1
+23:21:13 	Error:InitializeUsb-->open device failed,err=-3
+23:21:13 	Command mode out
+23:21:13 	Upgrade Tool v1.65
+
+23:21:13 	Current process in /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/tools/linux/Linux_Upgrade_Tool/Linux_Upgrade_Tool
+23:21:13 	Using /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/tools/linux/Linux_Upgrade_Tool/Linux_Upgrade_Tool/config.ini
+23:21:13 	Command Line: /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/tools/linux/Linux_Upgrade_Tool/Linux_Upgrade_Tool/upgrade_tool di -uboot /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/rockdev/uboot.img
+23:21:13 	Current Device Location ID:122
+23:21:13 	Error:InitializeUsb-->open device failed,err=-3
+23:21:13 	get_parameter_device->Creating comm object failed!
+23:21:13 	Command mode out
+23:21:13 	Upgrade Tool v1.65
+
+23:21:13 	Current process in /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/tools/linux/Linux_Upgrade_Tool/Linux_Upgrade_Tool
+23:21:13 	Using /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/tools/linux/Linux_Upgrade_Tool/Linux_Upgrade_Tool/config.ini
+23:21:13 	Command Line: /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/tools/linux/Linux_Upgrade_Tool/Linux_Upgrade_Tool/upgrade_tool di -trust /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/rockdev/trust.img
+23:21:13 	Current Device Location ID:122
+23:21:13 	get_download_item->/media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/rockdev/trust.img is not existed,err=2!
+23:21:13 	Command mode out
+23:21:13 	Upgrade Tool v1.65
+
+23:21:13 	Current process in /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/tools/linux/Linux_Upgrade_Tool/Linux_Upgrade_Tool
+23:21:13 	Using /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/tools/linux/Linux_Upgrade_Tool/Linux_Upgrade_Tool/config.ini
+23:21:13 	Command Line: /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/tools/linux/Linux_Upgrade_Tool/Linux_Upgrade_Tool/upgrade_tool di -b /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/rockdev/boot.img
+23:21:13 	Current Device Location ID:122
+23:21:13 	Error:InitializeUsb-->open device failed,err=-3
+23:21:13 	get_parameter_device->Creating comm object failed!
+23:21:13 	Command mode out
+23:21:13 	Upgrade Tool v1.65
+
+23:21:13 	Current process in /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/tools/linux/Linux_Upgrade_Tool/Linux_Upgrade_Tool
+23:21:13 	Using /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/tools/linux/Linux_Upgrade_Tool/Linux_Upgrade_Tool/config.ini
+23:21:13 	Command Line: /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/tools/linux/Linux_Upgrade_Tool/Linux_Upgrade_Tool/upgrade_tool di -r /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/rockdev/recovery.img
+23:21:13 	Current Device Location ID:122
+23:21:13 	Error:InitializeUsb-->open device failed,err=-3
+23:21:13 	get_parameter_device->Creating comm object failed!
+23:21:13 	Command mode out
+23:21:13 	Upgrade Tool v1.65
+
+23:21:13 	Current process in /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/tools/linux/Linux_Upgrade_Tool/Linux_Upgrade_Tool
+23:21:13 	Using /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/tools/linux/Linux_Upgrade_Tool/Linux_Upgrade_Tool/config.ini
+23:21:13 	Command Line: /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/tools/linux/Linux_Upgrade_Tool/Linux_Upgrade_Tool/upgrade_tool di -m /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/rockdev/misc.img
+23:21:13 	Current Device Location ID:122
+23:21:13 	Error:InitializeUsb-->open device failed,err=-3
+23:21:13 	get_parameter_device->Creating comm object failed!
+23:21:13 	Command mode out
+23:21:13 	Upgrade Tool v1.65
+
+23:21:13 	Current process in /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/tools/linux/Linux_Upgrade_Tool/Linux_Upgrade_Tool
+23:21:13 	Using /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/tools/linux/Linux_Upgrade_Tool/Linux_Upgrade_Tool/config.ini
+23:21:13 	Command Line: /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/tools/linux/Linux_Upgrade_Tool/Linux_Upgrade_Tool/upgrade_tool di -oem /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/rockdev/oem.img
+23:21:13 	Current Device Location ID:122
+23:21:13 	Error:InitializeUsb-->open device failed,err=-3
+23:21:13 	get_parameter_device->Creating comm object failed!
+23:21:13 	Command mode out
+23:21:13 	Upgrade Tool v1.65
+
+23:21:13 	Current process in /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/tools/linux/Linux_Upgrade_Tool/Linux_Upgrade_Tool
+23:21:13 	Using /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/tools/linux/Linux_Upgrade_Tool/Linux_Upgrade_Tool/config.ini
+23:21:13 	Command Line: /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/tools/linux/Linux_Upgrade_Tool/Linux_Upgrade_Tool/upgrade_tool di -userdata /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/rockdev/userdata.img
+23:21:13 	Current Device Location ID:122
+23:21:13 	Error:InitializeUsb-->open device failed,err=-3
+23:21:13 	get_parameter_device->Creating comm object failed!
+23:21:13 	Command mode out
+23:21:13 	Upgrade Tool v1.65
+
+23:21:13 	Current process in /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/tools/linux/Linux_Upgrade_Tool/Linux_Upgrade_Tool
+23:21:13 	Using /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/tools/linux/Linux_Upgrade_Tool/Linux_Upgrade_Tool/config.ini
+23:21:13 	Command Line: /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/tools/linux/Linux_Upgrade_Tool/Linux_Upgrade_Tool/upgrade_tool di -rootfs /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/rockdev/rootfs.img
+23:21:13 	Current Device Location ID:122
+23:21:13 	Error:InitializeUsb-->open device failed,err=-3
+23:21:13 	get_parameter_device->Creating comm object failed!
+23:21:13 	Command mode out
+23:21:13 	Upgrade Tool v1.65
+
+23:21:13 	Current process in /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/tools/linux/Linux_Upgrade_Tool/Linux_Upgrade_Tool
+23:21:13 	Using /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/tools/linux/Linux_Upgrade_Tool/Linux_Upgrade_Tool/config.ini
+23:21:13 	Command Line: /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/tools/linux/Linux_Upgrade_Tool/Linux_Upgrade_Tool/upgrade_tool rd
+23:21:13 	Current Device Location ID:122
+23:21:13 	Error:InitializeUsb-->open device failed,err=-3
+23:21:13 	Command mode out
+23:21:18 	Upgrade Tool v1.65
+
+23:21:18 	Current process in /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/tools/linux/Linux_Upgrade_Tool/Linux_Upgrade_Tool
+23:21:18 	Using /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/tools/linux/Linux_Upgrade_Tool/Linux_Upgrade_Tool/config.ini
+23:21:18 	Command Line: /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/tools/linux/Linux_Upgrade_Tool/Linux_Upgrade_Tool/upgrade_tool ul -noreset /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/rockdev/MiniLoaderAll.bin
+23:21:18 	Current Device Location ID:122
+23:21:18 	Command mode out
+23:21:18 	Upgrade Tool v1.65
+
+23:21:18 	Current process in /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/tools/linux/Linux_Upgrade_Tool/Linux_Upgrade_Tool
+23:21:18 	Using /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/tools/linux/Linux_Upgrade_Tool/Linux_Upgrade_Tool/config.ini
+23:21:18 	Command Line: /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/tools/linux/Linux_Upgrade_Tool/Linux_Upgrade_Tool/upgrade_tool di -p /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/rockdev/parameter.txt
+23:21:18 	Current Device Location ID:122
+23:21:18 	Info:start download,directlba=1,first4access=1,gpt=1
+23:21:18 	Command mode out
+23:21:18 	Upgrade Tool v1.65
+
+23:21:18 	Current process in /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/tools/linux/Linux_Upgrade_Tool/Linux_Upgrade_Tool
+23:21:18 	Using /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/tools/linux/Linux_Upgrade_Tool/Linux_Upgrade_Tool/config.ini
+23:21:18 	Command Line: /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/tools/linux/Linux_Upgrade_Tool/Linux_Upgrade_Tool/upgrade_tool di -uboot /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/rockdev/uboot.img
+23:21:18 	Current Device Location ID:122
+23:21:18 	Info:start download,directlba=1,first4access=1,gpt=1
+23:21:18 	Info:start download uboot,offset=0x00004000,partsize=0x00002000
+23:21:18 	Command mode out
+23:21:18 	Upgrade Tool v1.65
+
+23:21:18 	Current process in /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/tools/linux/Linux_Upgrade_Tool/Linux_Upgrade_Tool
+23:21:18 	Using /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/tools/linux/Linux_Upgrade_Tool/Linux_Upgrade_Tool/config.ini
+23:21:18 	Command Line: /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/tools/linux/Linux_Upgrade_Tool/Linux_Upgrade_Tool/upgrade_tool di -trust /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/rockdev/trust.img
+23:21:18 	Current Device Location ID:122
+23:21:18 	get_download_item->/media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/rockdev/trust.img is not existed,err=2!
+23:21:18 	Command mode out
+23:21:18 	Upgrade Tool v1.65
+
+23:21:18 	Current process in /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/tools/linux/Linux_Upgrade_Tool/Linux_Upgrade_Tool
+23:21:18 	Using /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/tools/linux/Linux_Upgrade_Tool/Linux_Upgrade_Tool/config.ini
+23:21:18 	Command Line: /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/tools/linux/Linux_Upgrade_Tool/Linux_Upgrade_Tool/upgrade_tool di -b /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/rockdev/boot.img
+23:21:18 	Current Device Location ID:122
+23:21:18 	Info:start download,directlba=1,first4access=1,gpt=1
+23:21:18 	Info:start download boot,offset=0x00008000,partsize=0x00010000
+23:21:19 	Command mode out
+23:21:19 	Upgrade Tool v1.65
+
+23:21:19 	Current process in /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/tools/linux/Linux_Upgrade_Tool/Linux_Upgrade_Tool
+23:21:19 	Using /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/tools/linux/Linux_Upgrade_Tool/Linux_Upgrade_Tool/config.ini
+23:21:19 	Command Line: /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/tools/linux/Linux_Upgrade_Tool/Linux_Upgrade_Tool/upgrade_tool di -r /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/rockdev/recovery.img
+23:21:19 	Current Device Location ID:122
+23:21:19 	Info:start download,directlba=1,first4access=1,gpt=1
+23:21:19 	Info:start download recovery,offset=0x00018000,partsize=0x00010000
+23:21:20 	Command mode out
+23:21:20 	Upgrade Tool v1.65
+
+23:21:20 	Current process in /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/tools/linux/Linux_Upgrade_Tool/Linux_Upgrade_Tool
+23:21:20 	Using /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/tools/linux/Linux_Upgrade_Tool/Linux_Upgrade_Tool/config.ini
+23:21:20 	Command Line: /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/tools/linux/Linux_Upgrade_Tool/Linux_Upgrade_Tool/upgrade_tool di -m /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/rockdev/misc.img
+23:21:20 	Current Device Location ID:122
+23:21:20 	Info:start download,directlba=1,first4access=1,gpt=1
+23:21:20 	Info:start download misc,offset=0x00006000,partsize=0x00002000
+23:21:20 	Command mode out
+23:21:20 	Upgrade Tool v1.65
+
+23:21:20 	Current process in /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/tools/linux/Linux_Upgrade_Tool/Linux_Upgrade_Tool
+23:21:20 	Using /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/tools/linux/Linux_Upgrade_Tool/Linux_Upgrade_Tool/config.ini
+23:21:20 	Command Line: /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/tools/linux/Linux_Upgrade_Tool/Linux_Upgrade_Tool/upgrade_tool di -oem /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/rockdev/oem.img
+23:21:20 	Current Device Location ID:122
+23:21:20 	Info:start download,directlba=1,first4access=1,gpt=1
+23:21:20 	Info:start download oem,offset=0x00338000,partsize=0x00060000
+23:21:34 	Command mode out
+23:21:34 	Upgrade Tool v1.65
+
+23:21:34 	Current process in /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/tools/linux/Linux_Upgrade_Tool/Linux_Upgrade_Tool
+23:21:34 	Using /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/tools/linux/Linux_Upgrade_Tool/Linux_Upgrade_Tool/config.ini
+23:21:34 	Command Line: /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/tools/linux/Linux_Upgrade_Tool/Linux_Upgrade_Tool/upgrade_tool di -userdata /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/rockdev/userdata.img
+23:21:34 	Current Device Location ID:122
+23:21:34 	Info:start download,directlba=1,first4access=1,gpt=1
+23:21:34 	Info:start download userdata,offset=0x00398000,partsize=0x00400000
+23:21:35 	Command mode out
+23:21:35 	Upgrade Tool v1.65
+
+23:21:35 	Current process in /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/tools/linux/Linux_Upgrade_Tool/Linux_Upgrade_Tool
+23:21:35 	Using /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/tools/linux/Linux_Upgrade_Tool/Linux_Upgrade_Tool/config.ini
+23:21:35 	Command Line: /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/tools/linux/Linux_Upgrade_Tool/Linux_Upgrade_Tool/upgrade_tool di -rootfs /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/rockdev/rootfs.img
+23:21:35 	Current Device Location ID:122
+23:21:35 	Info:start download,directlba=1,first4access=1,gpt=1
+23:21:35 	Info:start download rootfs,offset=0x00038000,partsize=0x00300000
+23:23:27 	Command mode out
+23:23:27 	Upgrade Tool v1.65
+
+23:23:27 	Current process in /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/tools/linux/Linux_Upgrade_Tool/Linux_Upgrade_Tool
+23:23:27 	Using /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/tools/linux/Linux_Upgrade_Tool/Linux_Upgrade_Tool/config.ini
+23:23:27 	Command Line: /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/tools/linux/Linux_Upgrade_Tool/Linux_Upgrade_Tool/upgrade_tool rd
+23:23:27 	Current Device Location ID:122
+23:23:27 	Command mode out
