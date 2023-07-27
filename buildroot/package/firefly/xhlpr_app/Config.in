@@ -1,0 +1,5 @@
+config BR2_PACKAGE_XHLPR_APP
+    bool "Xhlpr App"
+    help
+        Provided by Firefly
+

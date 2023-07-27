@@ -1,0 +1,4 @@
+config BR2_PACKAGE_MSP2UDP
+	bool "msp2osd"
+	help
+	  msp server, transmit MSP package to UDP port

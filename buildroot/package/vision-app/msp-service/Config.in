@@ -1,0 +1,4 @@
+config BR2_PACKAGE_MSP_SERVICE
+	bool "msp-service"
+	help
+	  msp service, Multiwii serial protocol service

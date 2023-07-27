@@ -1,0 +1,5 @@
+config BR2_PACKAGE_RKAIQ_SWITCH_MODE
+    bool "rkaiq switch mode"
+    help
+        Provided by firefly
+

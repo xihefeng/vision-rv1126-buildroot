@@ -1,0 +1,7 @@
+source "package/firefly/arcface/Config.in"
+source "package/firefly/arcuvc/Config.in"
+source "package/firefly/rkaiq_switch_mode/Config.in"
+source "package/firefly/firefly_rkmedia_demo/Config.in"
+source "package/firefly/firefly_rkmedia_uvc/Config.in"
+source "package/firefly/firefly_rockx_demo/Config.in"
+source "package/firefly/xhlpr_app/Config.in"

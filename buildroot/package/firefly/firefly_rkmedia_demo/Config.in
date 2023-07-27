@@ -1,0 +1,4 @@
+config BR2_PACKAGE_FIREFLY_RKMEDIA_DEMO
+    bool "Firefly Rkmedia Demo"
+    help
+        Provided by Firefly

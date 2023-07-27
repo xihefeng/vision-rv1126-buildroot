@@ -1,0 +1,57 @@
+# config BR2_PACKAGE_VISION_INITD
+# 	bool "initd scripts"
+# 	help
+# 		Start up initd scripts
+
+
+# menu "Configuration"
+# 	depends on BR2_PACKAGE_VISION_INITD
+
+# config BR2_PACKAGE_VISION_INITD_MSP_SERVICE
+# 	bool "msp service"
+# 	depends on BR2_PACKAGE_MSP_SERVICE
+# 	default n
+
+# config BR2_PACKAGE_WFB_NG_RX	
+# 	bool "wfb-ng rx"
+# 	depends on BR2_PACKAGE_WFB_NG
+# 	default n
+
+# config BR2_PACKAGE_WFB_NG_KEYGEN	
+# 	bool "wfb-ng keygen"
+# 	depends on BR2_PACKAGE_WFB_NG
+# 	default n	
+
+# config BR2_PACKAGE_WFB_NG_KEYS
+# 	bool "pre-generated keys"
+# 	depends on BR2_PACKAGE_WFB_NG
+# 	default n	
+
+# endmenu
+
+# config BR2_PACKAGE_VISION_INITD
+# 	bool "vision initd startup scripts"
+# 	select CONFIG_VISION_INITD
+# 	default n
+
+menuconfig CONFIG_VISION_INITD
+	bool "initd startup scripts"
+	select BR2_PACKAGE_VISION_INITD
+	#default y
+	help
+	  Start up initd scripts
+
+if CONFIG_VISION_INITD
+
+config BR2_PACKAGE_VISION_INITD_MSP_SERVICE
+	bool "msp service"
+	depends on BR2_PACKAGE_MSP_SERVICE
+	default n
+
+config BR2_PACKAGE_VISION_INITD_MSP2UDP
+	bool "msp to udp bridge"
+	depends on BR2_PACKAGE_MSP2UDP
+	default n
+
+endif # SAMPLES
+

@@ -1,0 +1,29 @@
+################################################################################
+#
+# 
+#
+################################################################################
+
+VISION_INITD_SITE = $(TOPDIR)/../vision-app/initd-scripts
+VISION_INITD_VERSION = release
+VISION_INITD_SITE_METHOD = local
+
+
+ifeq ($(BR2_PACKAGE_VISION_INITD_MSP_SERVICE),y)
+VISION_INITD_INSTALL_TARGET_EXTRA_STUFF_MSP_SERVICE = $(INSTALL) -m 0755 -D $(@D)/S57msp-service $(TARGET_DIR)/etc/init.d/
+VISION_INITD_DEPENDENCIES += msp-service
+endif
+
+ifeq ($(BR2_PACKAGE_VISION_INITD_MSP2UDP),y)
+VISION_INITD_INSTALL_TARGET_EXTRA_STUFF_MSP2UDP = $(INSTALL) -m 0755 -D $(@D)/S56msp2udp $(TARGET_DIR)/etc/init.d/
+VISION_INITD_DEPENDENCIES += msp2udp
+endif
+
+
+define VISION_INITD_INSTALL_TARGET_CMDS
+	$(VISION_INITD_INSTALL_TARGET_EXTRA_STUFF_MSP_SERVICE)
+	$(VISION_INITD_INSTALL_TARGET_EXTRA_STUFF_MSP2UDP)
+
+endef
+
+$(eval $(generic-package))

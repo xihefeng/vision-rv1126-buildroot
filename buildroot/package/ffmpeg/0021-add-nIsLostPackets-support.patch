@@ -1,0 +1,132 @@
+From ba96753a7c47c3f767d88a394f51ec0dd7181332 Mon Sep 17 00:00:00 2001
+From: daijh <djh@t-chip.com.cn>
+Date: Thu, 4 Nov 2021 15:29:17 +0800
+Subject: [PATCH] add nIsLostpackets detect support
+
+---
+ libavcodec/avcodec.h   |  2 ++
+ libavcodec/avpacket.c  |  2 ++
+ libavformat/avformat.h |  2 ++
+ libavformat/rtpdec.c   |  9 +++++++++
+ libavformat/utils.c    | 12 ++++++++++++
+ 5 files changed, 27 insertions(+)
+
+diff --git a/libavcodec/avcodec.h b/libavcodec/avcodec.h
+index ffafe79..dc8bf1b 100644
+--- a/libavcodec/avcodec.h
++++ b/libavcodec/avcodec.h
+@@ -1482,6 +1482,8 @@ typedef struct AVPacket {
+      * This is a reference to a hwaccel avframe.
+      */
+     AVFrame *hw_frame;
++
++    int nIsLostPackets;
+ } AVPacket;
+ #define AV_PKT_FLAG_KEY     0x0001 ///< The packet contains a keyframe
+ #define AV_PKT_FLAG_CORRUPT 0x0002 ///< The packet content is corrupted
+diff --git a/libavcodec/avpacket.c b/libavcodec/avpacket.c
+index 20fa203..b065855 100644
+--- a/libavcodec/avpacket.c
++++ b/libavcodec/avpacket.c
+@@ -47,6 +47,8 @@ FF_ENABLE_DEPRECATION_WARNINGS
+     pkt->side_data            = NULL;
+     pkt->side_data_elems      = 0;
+     pkt->hw_frame             = NULL;
++
++    pkt->nIsLostPackets       = 0;
+ }
+ 
+ AVPacket *av_packet_alloc(void)
+diff --git a/libavformat/avformat.h b/libavformat/avformat.h
+index fdaffa5..311a45e 100644
+--- a/libavformat/avformat.h
++++ b/libavformat/avformat.h
+@@ -2401,6 +2401,8 @@ int av_find_best_stream(AVFormatContext *ic,
+  */
+ int av_read_frame(AVFormatContext *s, AVPacket *pkt);
+ 
++int av_read_frame_aozhen(AVFormatContext *s, AVPacket *pkt);
++
+ /**
+  * Seek to the keyframe at timestamp.
+  * 'timestamp' in 'stream_index'.
+diff --git a/libavformat/rtpdec.c b/libavformat/rtpdec.c
+index e75a34c..44912fa 100644
+--- a/libavformat/rtpdec.c
++++ b/libavformat/rtpdec.c
+@@ -762,12 +762,17 @@ static int rtp_parse_queued_packet(RTPDemuxContext *s, AVPacket *pkt)
+     int rv;
+     RTPPacket *next;
+ 
++    int nIsLostPackets = 0;
++
+     if (s->queue_len <= 0)
+         return -1;
+ 
+     if (!has_next_packet(s))
++    {
+         av_log(s->ic, AV_LOG_WARNING,
+                "RTP: missed %d packets\n", s->queue->seq - s->seq - 1);
++        nIsLostPackets = 1; // lost packets
++    }
+ 
+     /* Parse the first packet in the queue, and dequeue it */
+     rv   = rtp_parse_packet_internal(s, pkt, s->queue->buf, s->queue->len);
+@@ -776,6 +781,10 @@ static int rtp_parse_queued_packet(RTPDemuxContext *s, AVPacket *pkt)
+     av_freep(&s->queue);
+     s->queue = next;
+     s->queue_len--;
++
++    if (nIsLostPackets)
++        pkt->nIsLostPackets = nIsLostPackets;
++
+     return rv;
+ }
+ 
+diff --git a/libavformat/utils.c b/libavformat/utils.c
+index 93e588e..f920b49 100644
+--- a/libavformat/utils.c
++++ b/libavformat/utils.c
+@@ -1572,6 +1572,8 @@ static int read_frame_internal(AVFormatContext *s, AVPacket *pkt)
+     int ret = 0, i, got_packet = 0;
+     AVDictionary *metadata = NULL;
+ 
++    int nIsLostPackets = 0;
++
+     av_init_packet(pkt);
+ 
+     while (!got_packet && !s->internal->parse_queue) {
+@@ -1580,6 +1582,9 @@ static int read_frame_internal(AVFormatContext *s, AVPacket *pkt)
+ 
+         /* read next packet */
+         ret = ff_read_packet(s, &cur_pkt);
++
++	nIsLostPackets = cur_pkt.nIsLostPackets;
++
+         if (ret < 0) {
+             if (ret == AVERROR(EAGAIN))
+                 return ret;
+@@ -1761,6 +1766,8 @@ FF_ENABLE_DEPRECATION_WARNINGS
+                av_ts2str(pkt->pts),
+                av_ts2str(pkt->dts),
+                pkt->size, pkt->duration, pkt->flags);
++    if (nIsLostPackets)
++	pkt->nIsLostPackets = nIsLostPackets;
+ 
+     return ret;
+ }
+@@ -1862,6 +1869,11 @@ return_packet:
+     return ret;
+ }
+ 
++int av_read_frame_aozhen(AVFormatContext *s, AVPacket *pkt)
++{
++	    return av_read_frame(s,pkt);
++}
++
+ /* XXX: suppress the packet queue */
+ static void flush_packet_queue(AVFormatContext *s)
+ {
+-- 
+2.33.0
+

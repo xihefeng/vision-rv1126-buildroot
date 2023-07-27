@@ -1,0 +1,5 @@
+config BR2_PACKAGE_FIREFLY_ROCKX_DEMO
+    bool "Firefly Rockx Demo"
+    help
+        Provided by Firefly
+

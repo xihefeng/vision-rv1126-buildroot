@@ -1,0 +1,15 @@
+menuconfig BR2_PACKAGE_VISION_APP
+	bool "VISION packages"
+	# select BR2_PACKAGE_HOST_E2FSPROGS
+	# select BR2_PACKAGE_HOST_NTFS_3G
+
+if BR2_PACKAGE_VISION_APP
+
+
+
+# Packages 
+source "package/vision-app/msp2udp/Config.in"
+source "package/vision-app/msp-service/Config.in"
+source "package/vision-app/wfb-ng/Config.in"
+source "package/vision-app/vision-initd/Config.in"
+endif

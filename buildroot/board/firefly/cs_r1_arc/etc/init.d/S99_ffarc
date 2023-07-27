@@ -1,0 +1,16 @@
+case "$1" in
+	start)
+		cp /usr/bin/server_rv1126 /userdata/
+		chmod +x /userdata/server_rv1126
+		cd /userdata
+		./server_rv1126 --platform vnc &
+		;;
+	stop)
+		killall server_rv1126
+		;;
+	*)
+		echo "Usage: $0 {start|stop}"
+		exit 1
+		;;
+esac
+exit 0

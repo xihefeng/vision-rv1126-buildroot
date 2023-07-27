@@ -1,0 +1,32 @@
+config BR2_PACKAGE_WFB_NG
+	bool "wfb-ng"
+	help
+		This is the next generation of long-range packet radio link based on raw WiFi radio
+
+		https://github.com/svpcom/wfb-ng
+
+menu "Configuration"
+	depends on BR2_PACKAGE_WFB_NG
+
+config BR2_PACKAGE_WFB_NG_TX
+	bool "wfb-ng tx"
+	depends on BR2_PACKAGE_WFB_NG
+	default y
+
+config BR2_PACKAGE_WFB_NG_RX	
+	bool "wfb-ng rx"
+	depends on BR2_PACKAGE_WFB_NG
+	default n
+
+config BR2_PACKAGE_WFB_NG_KEYGEN	
+	bool "wfb-ng keygen"
+	depends on BR2_PACKAGE_WFB_NG
+	default n	
+
+config BR2_PACKAGE_WFB_NG_KEYS
+	bool "pre-generated keys"
+	depends on BR2_PACKAGE_WFB_NG
+	default n	
+
+endmenu
+
