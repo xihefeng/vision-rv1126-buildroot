@@ -12,6 +12,8 @@
 #include "ipc_quick_display.config"
 #include "video_gst.config"
 #include "video_gst_rtsp.config"
+BR2_TOOLCHAIN_EXTERNAL_DOWNLOAD=y
+BR2_TOOLCHAIN_EXTERNAL_URL="https://armkeil.blob.core.windows.net/developer/Files/downloads/gnu-a/8.3-2019.03/binrel/gcc-arm-8.3-2019.03-x86_64-arm-linux-gnueabihf.tar.xz"
 BR2_TARGET_GENERIC_ROOT_PASSWD="123qwe"
 BR2_TARGET_GENERIC_GETTY_BAUDRATE_115200=y
 BR2_TARGET_LOCALTIME="Europe/Kiev"
