@@ -597,11 +597,11 @@ function build_kernel(){
 	cd kernel
 	make ARCH=$RK_ARCH $RK_KERNEL_DEFCONFIG $RK_KERNEL_DEFCONFIG_FRAGMENT
 	make ARCH=$RK_ARCH $RK_KERNEL_DTS.img -j$RK_JOBS
-	if [ -f "$TOP_DIR/device/rockchip/$RK_TARGET_PRODUCT/$RK_KERNEL_FIT_ITS" ]; then
-		$COMMON_DIR/mk-fitimage.sh $TOP_DIR/kernel/$RK_BOOT_IMG \
-			$TOP_DIR/device/rockchip/$RK_TARGET_PRODUCT/$RK_KERNEL_FIT_ITS \
-			$TOP_DIR/kernel/ramdisk.img
-	fi
+	# if [ -f "$TOP_DIR/device/rockchip/$RK_TARGET_PRODUCT/$RK_KERNEL_FIT_ITS" ]; then
+	# 	$COMMON_DIR/mk-fitimage.sh $TOP_DIR/kernel/$RK_BOOT_IMG \
+	# 		$TOP_DIR/device/rockchip/$RK_TARGET_PRODUCT/$RK_KERNEL_FIT_ITS \
+	# 		$TOP_DIR/kernel/ramdisk.img
+	# fi
 
 	if [ -f "$TOP_DIR/kernel/$RK_BOOT_IMG" ]; then
 		mkdir -p $TOP_DIR/rockdev
