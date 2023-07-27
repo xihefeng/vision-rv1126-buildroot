@@ -1,0 +1,34 @@
+#!/bin/sh
+
+case "$1" in
+  start)
+#    /usr/share/firefly_rockx_demo/start_rockx_app.sh
+    ;;
+  stop)
+    killall rockx_carplate_client
+    killall rockx_carplate_service
+    killall rockx_face_attribute_client
+    killall rockx_face_attribute_service
+    killall rockx_face_landmark_client
+    killall rockx_face_landmark_service
+    killall rockx_face_masks_detection_client
+    killall rockx_face_masks_detection_service
+    killall rockx_face_recognition_client
+    killall rockx_face_recognition_service
+    killall rockx_head_detection_client
+    killall rockx_head_detection_service
+    killall rockx_object_track_client
+    killall rockx_object_track_service
+    killall rockx_person_detection_client
+    killall rockx_person_detection_service
+    killall rockx_pose_body_client
+    killall rockx_pose_body_service
+    killall rockx_pose_finger_client
+    killall rockx_pose_finger_service
+    ;;
+  *)
+    echo "Usage: $0 {start|stop}"
+    exit 1
+    ;;
+esac
+exit 0
