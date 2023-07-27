@@ -1,0 +1,9 @@
+/media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/vision-app/wfb-ng/cmake-build-release/CMakeFiles/wfb_tx.dir
+/media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/vision-app/wfb-ng/cmake-build-release/CMakeFiles/wfb_rx.dir
+/media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/vision-app/wfb-ng/cmake-build-release/CMakeFiles/wfb_keygen.dir
+/media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/vision-app/wfb-ng/cmake-build-release/CMakeFiles/edit_cache.dir
+/media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/vision-app/wfb-ng/cmake-build-release/CMakeFiles/rebuild_cache.dir
+/media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/vision-app/wfb-ng/cmake-build-release/CMakeFiles/list_install_components.dir
+/media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/vision-app/wfb-ng/cmake-build-release/CMakeFiles/install.dir
+/media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/vision-app/wfb-ng/cmake-build-release/CMakeFiles/install/local.dir
+/media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/vision-app/wfb-ng/cmake-build-release/CMakeFiles/install/strip.dir

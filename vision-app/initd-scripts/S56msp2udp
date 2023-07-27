@@ -1,0 +1,27 @@
+#!/bin/sh
+#
+# MSP to UDP initd scripts
+#
+
+
+case "$1" in
+  start)
+	printf "Start MSP to UDP: "
+	/usr/bin/msp2udp > /dev/null 2>&1 &
+	[ $? = 0 ] && echo "OK" || echo "FAIL"
+	;;
+  stop)
+	printf "Stop MSP to UDP: "
+	killall msp2udp
+	[ $? = 0 ] && echo "OK" || echo "FAIL"
+	;;
+  restart|reload)
+	"$0" stop
+	"$0" start
+	;;
+  *)
+	echo "Usage: $0 {start|stop|restart}"
+	exit 1
+esac
+
+exit $?

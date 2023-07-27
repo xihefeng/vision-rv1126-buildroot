@@ -1,0 +1,70 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-Debug-901280b99199486c5d97.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.1"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "msp",
+					"targetIndexes" : 
+					[
+						0,
+						1
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "msp::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-msp-Debug-7f1cd64ad01859a3a902.json",
+					"name" : "msp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "msp_telemetry_client::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-msp_telemetry_client-Debug-08f65cdb1d1a03f07007.json",
+					"name" : "msp_telemetry_client",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/vision-app/msp/cmake-build-debug-rv1126-1",
+		"source" : "/media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/vision-app/msp"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 4
+	}
+}

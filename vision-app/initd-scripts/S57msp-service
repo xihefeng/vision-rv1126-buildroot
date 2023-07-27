@@ -1,0 +1,28 @@
+#!/bin/sh
+#
+# MSP service
+#
+
+
+case "$1" in
+        start)
+        printf "Start MSP service: "
+        /usr/bin/msp /dev/ttyS3 > /dev/null 2>&1 &
+        [ $? = 0 ] && echo "OK" || echo "FAIL"
+        ;;
+        stop)
+        printf "Stop MSP service: "
+        killall msp
+        [ $? = 0 ] && echo "OK" || echo "FAIL"
+        ;;
+        restart|reload)
+        "$0" stop
+        "$0" start
+        ;;
+        *)
+        echo "Usage: $0 {start|stop|restart}"
+        exit 1
+esac
+
+exit $?
+

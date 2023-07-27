@@ -1,0 +1,5 @@
+# ninja log v5
+0	52	1690375945824511732	CMakeFiles/wfb_keygen.dir/src/keygen.c.o	33dcf228f5894e5b
+52	69	1690375945840511730	wfb_keygen	1c166d67fbbcd383
+0	46	1690375980732502960	CMakeFiles/wfb_keygen.dir/src/keygen.c.o	33dcf228f5894e5b
+46	56	1690375980744502955	wfb_keygen	1c166d67fbbcd383

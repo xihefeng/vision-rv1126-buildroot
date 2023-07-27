@@ -1,0 +1,5 @@
+/home/nacuk/clion-2022.2.3/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "Unix Makefiles" -S /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/vision-app/wfb-ng -B /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/vision-app/wfb-ng/cmake-build-debug-rv1126-1
+-- CMAKE_SYSROOT:/media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/buildroot/output/firefly_rv1126_rv1109/host/arm-buildroot-linux-gnueabihf/sysroot
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/vision-app/wfb-ng/cmake-build-debug-rv1126-1
