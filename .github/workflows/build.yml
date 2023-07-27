@@ -32,10 +32,10 @@ jobs:
       run: |
         ls -l
         sleep 1
-        cat build.sh 
+        cat device/rockchip/common/build.sh
     
-#     - name: build U-boot
-#       run: |
-#         bash vision-rv1126/build.sh device/rockchip/rv1126_rv1109/vision-rv1126.mk
-#         bash vision-rv1126/build.sh uboot
+    - name: build U-boot
+      run: |
+        bash device/rockchip/common/build.sh device/rockchip/rv1126_rv1109/vision-rv1126.mk
+        bash device/rockchip/common/build.sh uboot
 
