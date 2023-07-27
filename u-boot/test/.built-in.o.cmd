@@ -1,0 +1,1 @@
+cmd_test/built-in.o :=  rm -f test/built-in.o; /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/prebuilts/gcc/linux-x86/arm/gcc-linaro-6.3.1-2017.05-x86_64_arm-linux-gnueabihf/bin/arm-linux-gnueabihf-ar rcs test/built-in.o

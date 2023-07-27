@@ -1,0 +1,1 @@
+cmd_drivers/power/fuel_gauge/built-in.o :=  /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/prebuilts/gcc/linux-x86/arm/gcc-linaro-6.3.1-2017.05-x86_64_arm-linux-gnueabihf/bin/arm-linux-gnueabihf-ld.bfd     -r -o drivers/power/fuel_gauge/built-in.o drivers/power/fuel_gauge/fuel_gauge_uclass.o drivers/power/fuel_gauge/fg_rk817.o 

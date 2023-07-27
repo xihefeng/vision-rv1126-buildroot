@@ -1,0 +1,6 @@
+fuel_gauge_uclass.c:13:5:fuel_gauge_capability	8	static
+fuel_gauge_uclass.c:23:5:fuel_gauge_bat_is_exist	8	static
+fuel_gauge_uclass.c:33:5:fuel_gauge_get_current	8	static
+fuel_gauge_uclass.c:43:5:fuel_gauge_get_voltage	8	static
+fuel_gauge_uclass.c:53:5:fuel_gauge_update_get_soc	8	static
+fuel_gauge_uclass.c:63:6:fuel_gauge_get_chrg_online	8	static

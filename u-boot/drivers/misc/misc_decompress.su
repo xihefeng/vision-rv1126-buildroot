@@ -1,0 +1,5 @@
+misc_decompress.c:132:12:misc_decompress_finish.isra.0	16	static
+misc_decompress.c:28:6:misc_decompress_async	0	static
+misc_decompress.c:33:6:misc_decompress_sync	0	static
+misc_decompress.c:146:5:misc_decompress_cleanup	32	static
+misc_decompress.c:183:5:misc_decompress_process	72	static

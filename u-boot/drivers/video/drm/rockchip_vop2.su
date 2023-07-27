@@ -1,0 +1,9 @@
+rockchip_vop2.c:899:13:is_yuv_output	0	static
+rockchip_vop2.c:1882:12:rockchip_vop2_prepare	0	static
+rockchip_vop2.c:1887:12:rockchip_vop2_enable	12	static
+rockchip_vop2.c:1901:12:rockchip_vop2_disable	12	static
+rockchip_vop2.c:1958:12:rockchip_vop2_fixup_dts	56	static
+rockchip_vop2.c:1459:12:rockchip_vop2_init	192	static
+rockchip_vop2.c:1430:12:rockchip_vop2_preinit	32	static
+rockchip_vop2.c:703:17:vop2_scale_factor.part.2	32	static
+rockchip_vop2.c:1790:12:rockchip_vop2_set_plane	152	static

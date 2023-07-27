@@ -1,0 +1,11 @@
+rockchip-otp.c:359:12:rockchip_otp_probe	8	static
+rockchip-otp.c:331:12:rockchip_otp_read	24	static
+rockchip-otp.c:350:12:rockchip_otp_ofdata_to_platdata	16	static
+rockchip-otp.c:307:12:rockchip_rv1126_otp_read	32	static
+rockchip-otp.c:282:12:rockchip_rv1126_otp_init	16	static
+rockchip-otp.c:101:12:rk3308bs_otp_wait_status.isra.0	24	static
+rockchip-otp.c:180:12:rockchip_rk3308bs_otp_read	48	static
+rockchip-otp.c:22:12:rockchip_otp_wait_status.isra.2	16	static
+rockchip-otp.c:42:12:rockchip_otp_ecc_enable.constprop	8	static
+rockchip-otp.c:67:12:rockchip_px30_otp_read	32	static
+rockchip-otp.c:231:12:rockchip_rk3568_otp_read	56	static

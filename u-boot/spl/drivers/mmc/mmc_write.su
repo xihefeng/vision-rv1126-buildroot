@@ -1,0 +1,3 @@
+mmc_write.c:18:14:mmc_erase_t	56	static
+mmc_write.c:83:7:mmc_berase	24	static
+mmc_write.c:220:7:mmc_bwrite	80	static

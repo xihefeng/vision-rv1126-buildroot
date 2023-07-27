@@ -1,0 +1,8 @@
+vendor.c:260:12:mtd_vendor_write	32	static
+vendor.c:304:12:vendor_ops	32	static
+vendor.c:703:13:vendor_test_reset	24	static
+vendor.c:145:5:flash_vendor_dev_ops_register	0	static
+vendor.c:406:5:vendor_storage_init	168	static
+vendor.c:558:5:vendor_storage_read	24	static
+vendor.c:600:5:vendor_storage_write	48	static
+vendor.c:753:5:vendor_storage_test	48	static

@@ -1,0 +1,11 @@
+irq-gpio-v2.c:54:13:gpio_bit_op	8	static
+irq-gpio-v2.c:66:12:gpio_bit_rd	0	static
+irq-gpio-v2.c:132:13:gpio_set_intr_type	16	static
+irq-gpio-v2.c:261:12:gpio_irq_get_gpio_level	8	static
+irq-gpio-v2.c:224:12:gpio_irq_revert_type	24	static
+irq-gpio-v2.c:186:12:gpio_irq_set_type	16	static
+irq-gpio-v2.c:297:12:gpio_irq_disable	16	static
+irq-gpio-v2.c:321:12:gpio_irq_init	24	static
+irq-gpio-v2.c:276:12:gpio_irq_enable	16	static
+irq-gpio-v2.c:89:13:generic_gpio_handle_irq	48	static
+irq-gpio-v2.c:363:18:arch_gpio_get_irqchip	0	static

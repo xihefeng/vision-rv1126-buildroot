@@ -1,0 +1,3 @@
+16:55:14 	Error:EnumerateUsbDevice-->get_string_descriptor open failed,err=-3!
+16:55:14 	Error:EnumerateUsbDevice-->get_string_descriptor open failed,err=-3!
+16:55:14 	Error:EnumerateUsbDevice-->get_string_descriptor open failed,err=-3!

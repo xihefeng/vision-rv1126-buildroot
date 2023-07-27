@@ -1,0 +1,8 @@
+charge_animation.c:258:13:timer_irq_handler	8	static
+charge_animation.c:270:13:autowakeup_timer_init	16	static
+charge_animation.c:349:12:fg_charger_get_chrg_online	8	static
+charge_animation.c:193:12:system_suspend_enter	16	static
+charge_animation.c:288:13:autowakeup_timer_uninit	8	static
+charge_animation.c:433:12:charge_animation_show	112	static
+charge_animation.c:85:12:charge_animation_ofdata_to_platdata	16	static
+charge_animation.c:947:12:charge_animation_probe	24	static
