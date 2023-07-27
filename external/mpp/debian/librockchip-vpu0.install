@@ -1,0 +1,3 @@
+#! /usr/bin/dh-exec
+usr/lib/*/librockchip_vpu.so
+usr/lib/*/librockchip_vpu.so.*

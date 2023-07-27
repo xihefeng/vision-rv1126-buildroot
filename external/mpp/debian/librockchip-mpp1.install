@@ -1,0 +1,3 @@
+#! /usr/bin/dh-exec
+usr/lib/*/librockchip_mpp.so
+usr/lib/*/librockchip_mpp.so.*
