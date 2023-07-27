@@ -1,0 +1,28 @@
+#!/bin/sh
+cmd="/usr/bin/check_brightness.sh"
+config="/etc/init.d/.ffswitchmode_config"
+cpsl="/tmp/cpsl"
+
+case "$1" in
+  start)
+  	mode=$(cat $config | grep MODE | awk -F '=' '{print $2}')
+	if [ "$mode" == "RK_AIQ_OP_MODE_AUTO" ];then
+		echo 1 > $cpsl
+	elif [ "$mode" == "RK_AIQ_OP_MODE_MANUAL" ];then
+		echo 2 > $cpsl
+		$cmd &
+	else
+		echo "Invalid Mode ! Disable Firefly Siwtch mode function, Please check this file: $config"
+		exit -1
+	fi
+    ;;
+  stop)
+  	killall $cmd
+    ;;
+  *)
+    echo "Usage: $0 {start|stop}"
+    exit 1
+    ;;
+esac
+exit 0
+

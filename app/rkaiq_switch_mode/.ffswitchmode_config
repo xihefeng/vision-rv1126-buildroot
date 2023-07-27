@@ -1,0 +1,5 @@
+MODE=RK_AIQ_OP_MODE_MANUAL
+ADC_NIGHT=800
+ADC_DAY=100
+ADC_DEV=/sys/bus/iio/devices/iio:device0/in_voltage2_raw
+
