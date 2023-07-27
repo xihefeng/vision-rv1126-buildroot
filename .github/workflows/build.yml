@@ -12,10 +12,10 @@ jobs:
     runs-on: ubuntu-20.04
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v2
       with:
         fetch-depth: 0
-        path: build
+        path: ./build
         
     - name: Install depends
       run: |
@@ -27,7 +27,6 @@ jobs:
       run: |
         ls -l
         pwd
-        sudo chmod +x *.sh
     - name: check dir
       working-directory: ./build
       run: |
