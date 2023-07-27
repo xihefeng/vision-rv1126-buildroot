@@ -32,5 +32,11 @@ jobs:
       working-directory: ./build
       run: |
         bash build.sh device/rockchip/rv1126_rv1109/vision-rv1126.mk
-        bash build.sh kernel        
+        bash build.sh kernel
+        
+    - name: Upload SDK from GitHub Action
+      uses: actions/upload-artifact@v3
+      with: 
+       name: artifacts
+       path: ./build/rockdev
 
