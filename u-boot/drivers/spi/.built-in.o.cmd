@@ -1,1 +1,0 @@
-cmd_drivers/spi/built-in.o :=  /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/prebuilts/gcc/linux-x86/arm/gcc-linaro-6.3.1-2017.05-x86_64_arm-linux-gnueabihf/bin/arm-linux-gnueabihf-ld.bfd     -r -o drivers/spi/built-in.o drivers/spi/spi-uclass.o drivers/spi/spi-mem.o drivers/spi/rockchip_sfc.o 

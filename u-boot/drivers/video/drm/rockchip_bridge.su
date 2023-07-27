@@ -1,5 +1,0 @@
-rockchip_bridge.c:8:6:rockchip_bridge_pre_enable	0	static
-rockchip_bridge.c:17:6:rockchip_bridge_post_disable	0	static
-rockchip_bridge.c:26:6:rockchip_bridge_enable	0	static
-rockchip_bridge.c:35:6:rockchip_bridge_disable	0	static
-rockchip_bridge.c:44:6:rockchip_bridge_mode_set	0	static

@@ -1,2 +1,0 @@
-adc_key.c:11:12:adc_key_ofdata_to_platdata	32	static
-adc_key.c:65:12:adc_key_bus_bind	0	static

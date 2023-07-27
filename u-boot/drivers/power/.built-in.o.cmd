@@ -1,1 +1,0 @@
-cmd_drivers/power/built-in.o :=  /media/ssd/FireFly-RV1126JD4/rv1126_rv1109_linux_release_20211022/prebuilts/gcc/linux-x86/arm/gcc-linaro-6.3.1-2017.05-x86_64_arm-linux-gnueabihf/bin/arm-linux-gnueabihf-ld.bfd     -r -o drivers/power/built-in.o drivers/power/charge-display-uclass.o drivers/power/charge_animation.o drivers/power/rockchip_pm.o 

@@ -1,6 +1,0 @@
-rockchip_rng.c:142:12:rockchip_rng_read	24	static
-rockchip_rng.c:170:12:rockchip_rng_ofdata_to_platdata	16	static
-rockchip_rng.c:183:12:rockchip_rng_probe	16	static
-rockchip_rng.c:56:12:rk_rng_read_regs	32	static
-rockchip_rng.c:108:12:rk_v2_rng_read	24	static
-rockchip_rng.c:77:12:rk_v1_rng_read	24	static

@@ -1,9 +1,0 @@
-rockchip_vop.c:59:13:is_yuv_output	0	static
-rockchip_vop.c:204:12:rockchip_vop_preinit	0	static
-rockchip_vop.c:740:12:rockchip_vop_prepare	0	static
-rockchip_vop.c:745:12:rockchip_vop_enable	20	static
-rockchip_vop.c:758:12:rockchip_vop_disable	20	static
-rockchip_vop.c:768:12:rockchip_vop_fixup_dts	0	static
-rockchip_vop.c:810:12:rockchip_vop_send_mcu_cmd	24	static
-rockchip_vop.c:213:12:rockchip_vop_init	128	static
-rockchip_vop.c:658:12:rockchip_vop_set_plane	80	static
