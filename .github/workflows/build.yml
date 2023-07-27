@@ -32,6 +32,8 @@ jobs:
       run: |
         ls -l
         sleep 1
+        ls -l device/rockchip/common/
+        sleep 1
         cat device/rockchip/common/build.sh
     
     - name: build U-boot
