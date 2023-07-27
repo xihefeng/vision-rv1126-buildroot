@@ -1,0 +1,294 @@
+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+/*
+ * Copyright (c) 2020 Rockchip Electronics Co., Ltd.
+ */
+/dts-v1/;
+#include "rv1126.dtsi"
+#include "rv1126-vision-board-def.dtsi"
+
+
+/ {
+	model = "Rockchip RV1126 Vision board ver 1.1";
+	compatible = "rockchip,rv1126-evb-ddr3-v13", "rockchip,rv1126";
+
+	chosen {
+		bootargs = "earlycon=uart8250,mmio32,0xff570000 console=ttyFIQ0 root=PARTUUID=614e0000-0000 rootfstype=ext4 rw rootwait snd_aloop.index=7";
+	};
+
+	leds {
+        compatible = "gpio-leds";
+        led_stat {
+            gpios = <&gpio1 RK_PB2 GPIO_ACTIVE_LOW>;
+			label = "heartbeat";
+			default-state = "off";
+			linux,default-trigger = "heartbeat";
+        };
+		led_act {
+            gpios = <&gpio1 RK_PB3 GPIO_ACTIVE_LOW>;
+            label = "green";
+            default-state = "off";
+        };
+    };
+
+};
+
+&uart0 {
+	/delete-property/ pinctrl-0;
+	pinctrl-0 = <&uart0_xfer>;
+	dma-names = "tx","rx";
+	status = "okay";
+};
+
+&uart3 {
+	/delete-property/ pinctrl-0;
+	pinctrl-0 = <&uart3m2_xfer>;
+	dma-names = "tx","rx";
+	status = "okay";
+};
+
+&isp_reserved {
+	size = <0x6000000>;
+	//size = <0x10000000>;//256M and need 4M align
+};
+
+
+&npu {
+	npu-supply = <&vdd_npu_vepu>;
+	status = "okay";
+};
+
+&npu_tsadc {
+	status = "okay";
+};
+
+
+&fiq_debugger {
+	status = "okay";
+	rockchip,baudrate = <115200>;
+};
+
+&i2c1 {
+
+	gc4663: gc4663@29 {
+		reg = <0x29>;
+		compatible = "galaxycore,gc4663";
+		rockchip,camera-module-index = <1>;
+		rockchip,camera-module-facing = "front";
+		clock-names = "xvclk";
+		pinctrl-names = "rockchip,camera_default";
+
+		pinctrl-0 = <&mipicsi_clk0>;
+	
+		power-domains = <&power RV1126_PD_VI>;
+		dvdd-supply = <&vcc3v3_sys>;
+		dovdd-supply = <&vcc3v3_sys>;
+		avdd-supply = <&vcc3v3_sys>;
+		clocks = <&cru CLK_MIPICSI_OUT>;
+		reset-gpios = <&gpio1 RK_PD4 GPIO_ACTIVE_HIGH>;
+		rockchip,camera-module-name = "TRC-2232A6";
+		rockchip,camera-module-lens-name = "28IRC-4M-F22-v1.0x23";
+
+		port {
+			gc4663_out: endpoint {
+				remote-endpoint = <&mipi_in_ucam0>;
+				data-lanes = <1 2>;
+			};
+		};
+	};
+
+	// imx219: imx219@10 {
+	// 	compatible = "sony,imx219";
+	// 	reg = <0x10>;
+	// 	clocks = <&cru CLK_MIPICSI_OUT>;
+	// 	clock-names = "xvclk";
+	// 	power-domains = <&power RV1126_PD_VI>;
+	// 	pinctrl-names = "rockchip,camera_default";
+	// 	pinctrl-0 = <&mipicsi_clk1>;
+	// 	avdd-supply = <&vcc3v3_sys>;
+	// 	dovdd-supply = <&vcc3v3_sys>;
+	// 	dvdd-supply = <&vcc3v3_sys>;
+	// 	reset-gpios = <&gpio1 RK_PD5 GPIO_ACTIVE_HIGH>;
+	// 	pwd-gpios = <&gpio2 RK_PA1 GPIO_ACTIVE_HIGH>;
+	// 	rockchip,camera-module-index = <2>;
+	// 	rockchip,camera-module-facing = "front";
+	// 	rockchip,camera-module-name = "YT10092";
+	// 	rockchip,camera-module-lens-name = "IR0147-28IRC-8M-F20";
+
+	// 	port {
+	// 		imx219_out0: endpoint {
+	// 			remote-endpoint = <&mipi_in_ucam1>;
+	// 			data-lanes = <1 2 3 4>;
+	// 		};
+	// 	};
+	// };
+};
+
+
+&csi_dphy0 {
+	status = "okay";
+	ports {
+		#address-cells = <1>;
+		#size-cells = <0>;
+		port@0 {
+			reg = <0>;
+			#address-cells = <1>;
+			#size-cells = <0>;
+			mipi_in_ucam0: endpoint@1 {
+				reg = <1>;
+				// The port name of the sensor
+				remote-endpoint = <&gc4663_out>;
+				// mipi lane number，1lane is <1>, 4lane is <1 2 3 4>
+				data-lanes = <1 2>;
+			};
+		};
+		port@1 {
+			reg = <1>;
+			#address-cells = <1>;
+			#size-cells = <0>;
+			csidphy0_out: endpoint@0 {
+				reg = <0>;
+				// name of isp port
+				remote-endpoint = <&isp_in>;
+			};
+		};
+	};
+};
+
+// &csi_dphy1 {
+// 	status = "okay";
+// 	ports {
+// 		#address-cells = <1>;
+// 		#size-cells = <0>;
+// 		port@0 {
+// 			reg = <0>;
+// 			#address-cells = <1>;
+// 			#size-cells = <0>;
+// 			mipi_in_ucam1: endpoint@1 {
+// 				reg = <1>;
+// 				// The port name of the sensor
+// 				remote-endpoint = <&imx219_out0>;
+// 				// mipi lane number，1lane is <1>, 4lane is <1 2 3 4>
+// 				data-lanes = <1 2 3 4>;
+// 			};
+// 		};
+// 		port@1 {
+// 			reg = <1>;
+// 			#address-cells = <1>;
+// 			#size-cells = <0>;
+// 			csidphy1_out: endpoint@0 {
+// 				reg = <0>;
+// 				// name of isp port
+// 				remote-endpoint = <&isp1_in>;
+// 			};
+// 		};
+// 	};
+// };
+
+&rkisp_mmu{
+	//status = "okay";
+	status = "disabled";
+};
+
+&rkisp {
+	status = "okay";
+	/delete-property/ memory-region;
+	memory-region = <&isp_reserved>;
+	//iommus = <&rkisp_mmu>;
+};
+
+&rkisp_vir0 {
+	status = "okay";
+	wait-line = <720>;
+	ports {
+		#address-cells = <1>;
+		#size-cells = <0>;
+		port@0 {
+			reg = <0>;
+			#address-cells = <1>;
+			#size-cells = <0>;
+			isp_in: endpoint@0 {
+				reg = <0>;
+				// name of mipi dphy port
+				remote-endpoint = <&csidphy0_out>;
+			};
+		};
+		port@1 {
+			reg = <1>;
+			#address-cells = <1>;
+			#size-cells = <0>;
+			isp0_out: endpoint@1 {
+				reg = <1>;
+				// ispp port name, isp output to ispp
+				remote-endpoint = <&ispp0_in>;
+				};
+		};
+	};
+};
+
+// &rkisp_vir1 {
+// 	status = "okay";
+// 	ports {
+// 		#address-cells = <1>;
+// 		#size-cells = <0>;
+// 		port@0 {
+// 			reg = <0>;
+// 			#address-cells = <1>;
+// 			#size-cells = <0>;
+// 			isp1_in: endpoint@0 {
+// 				reg = <0>;
+// 				// name of mipi dphy port
+// 				remote-endpoint = <&csidphy1_out>;
+// 			};
+// 		};
+// 		port@1 {
+// 			reg = <1>;
+// 			#address-cells = <1>;
+// 			#size-cells = <0>;
+// 			isp1_out: endpoint@1 {
+// 				reg = <1>;
+// 				// ispp port name, isp output to ispp
+// 				remote-endpoint = <&ispp1_in>;
+// 				};
+// 		};
+// 	};
+// };
+
+&rkispp_mmu{
+	//status = "okay";
+	status = "disabled";
+};
+
+&rkispp {
+	memory-region = <&isp_reserved>;
+	rockchip,restart-monitor-en;
+	status = "okay";
+	max-input = <2560 1440 60>;
+};
+
+&rkispp_vir0 {
+	status = "okay";
+	wait-line = <1280>;
+	port {
+		#address-cells = <1>;
+		#size-cells = <0>;
+		Ispp0_in: endpoint@0 {
+			reg = <0>;
+			// isp port name, ispp input
+			remote-endpoint = <&isp0_out>;
+		};
+	};
+};
+
+// &rkispp_vir1 {
+// 	status = "okay";
+// 	port {
+// 		#address-cells = <1>;
+// 		#size-cells = <0>;
+// 		Ispp1_in: endpoint@0 {
+// 			reg = <0>;
+// 			// isp port name, ispp input
+// 			remote-endpoint = <&isp1_out>;
+// 		};
+// 	};
+// };
+
