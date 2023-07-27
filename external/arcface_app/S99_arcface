@@ -1,0 +1,15 @@
+#!/bin/sh
+
+case "$1" in
+  start)
+    echo 77 > /sys/class/leds/PWM-IR/brightness
+    /usr/share/arc/start_app.sh 90
+    ;;
+  stop)
+    ;;
+  *)
+    echo "Usage: $0 {start|stop}"
+    exit 1
+    ;;
+esac
+exit 0
