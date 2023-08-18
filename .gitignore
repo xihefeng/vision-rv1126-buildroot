@@ -5,3 +5,4 @@ kernel2/
 IMAGE/
 deploy/
 rockdev/
+*.o
