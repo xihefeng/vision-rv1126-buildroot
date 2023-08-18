@@ -2,4 +2,7 @@
 .vscode/
 *.o
 *.cmd
-
+*.ko
+*.mod
+*.mod.c
+*.mod
