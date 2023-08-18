@@ -28,6 +28,7 @@ MISC_IMG=$TOP_DIR/device/rockchip/rockimg/$RK_MISC
 ROOTFS_IMG=$TOP_DIR/$RK_ROOTFS_IMG
 ROOTFS_IMG_SOURCE=$TOP_DIR/buildroot/output/$RK_CFG_BUILDROOT/images/rootfs.$RK_ROOTFS_TYPE
 RAMBOOT_IMG=$TOP_DIR/buildroot/output/$RK_CFG_RAMBOOT/images/ramboot.img
+SDK_SOURCE_FILE=$TOP_DIR/buildroot/output/$RK_CFG_BUILDROOT/images/vision-sdk.tar.gz
 if [ -n "${RK_CFG_RECOVERY}" ]; then
 RECOVERY_IMG=$TOP_DIR/buildroot/output/$RK_CFG_RECOVERY/images/recovery.img
 else
@@ -183,6 +184,15 @@ then
 	else
 		echo "warning: $ROOTFS_IMG not found!"
 		echo -e "\nplease set correct \e[31m RK_ROOTFS_IMG \e[0m in \e[31m device/rockchip/.BoardConfig.mk \e[0m\n"
+	fi
+
+	if [ -f $SDK_SOURCE_FILE ]
+	then
+		echo -n "Create SDK link form $SDK_SOURCE_FILE ..."
+		ln -rsf $SDK_SOURCE_FILE $ROCKDEV/vision-sdk.tar.gz
+		echo "done."
+	else
+		echo "warning: $SDK_SOURCE_FILE not found!"
 	fi
 fi
 
