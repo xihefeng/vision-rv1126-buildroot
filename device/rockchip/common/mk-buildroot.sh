@@ -17,7 +17,7 @@ then
         exit 0
 fi
 source $TOP_DIR/buildroot/build/envsetup.sh $RK_CFG_BUILDROOT
-$TOP_DIR/buildroot/utils/brmake
+$TOP_DIR/buildroot/utils/brmake sdk
 if [ $? -ne 0 ]; then
     echo "log saved on $TOP_DIR/br.log"
     tail -n 100 $TOP_DIR/br.log
