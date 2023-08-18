@@ -1,0 +1,19 @@
+#!/bin/sh
+
+case "$1" in
+  start)
+    /usr/share/xhlpr_app/start_xhlpr_app.sh
+    ;;
+  stop)
+    killall xhlpr_service
+    killall xhlpr_client
+    killall rockx_client
+    killall xhlpr_http
+    killall ff_provide_ip
+    ;;
+  *)
+    echo "Usage: $0 {start|stop}"
+    exit 1
+    ;;
+esac
+exit 0
