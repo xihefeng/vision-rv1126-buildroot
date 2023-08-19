@@ -33,6 +33,12 @@ jobs:
       run: |
         bash build.sh device/rockchip/rv1126_rv1109/vision-rv1126.mk
         bash build.sh kernel
+
+    - name: build rtl8812au
+      working-directory: ./build/rtl8812au
+      run: |
+        make -j4
+        make install
   
     - name: build rootfs
       working-directory: ./build
@@ -43,7 +49,15 @@ jobs:
     - name: Make Firmware
       working-directory: ./build
       run: bash mkfirmware.sh
-      
+
+
+    - name: Upload Build-log
+      uses: actions/upload-artifact@v3
+      if: always()
+      with: 
+       name: build.log
+       path: ./build/br.log
+
     - name: Upload SDK from GitHub Action
       uses: actions/upload-artifact@v3
       with: 
