@@ -66,14 +66,14 @@ jobs:
        name: build.log
        path: ./build/br.log
 
-    - name: Upload SDK from GitHub Action
-      uses: actions/upload-artifact@v3
-      with: 
-       name: sdk
-       path: ./build/rockdev
-
     - name: Upload Firmware from GitHub Action
       uses: actions/upload-artifact@v3
       with: 
        name: firmware
+       path: ./build/rockdev
+
+    - name: Upload SDK from GitHub Action
+      uses: actions/upload-artifact@v3
+      with: 
+       name: SDK
        path: ./build/rockdev_sdk/vision-sdk.tar.gz
