@@ -20,7 +20,7 @@ jobs:
     # - name: Install depends
     #  run: |
     #    sudo apt update
-    #    sudo apt-get install -y expect-dev python2 git git-lfs expect-dev debianutils sed make binutils build-essential gcc g++ bash patch gzip bzip2 perl tar cpio unzip rsync file bc git device-tree-compiler
+    #    sudo apt-get install -y bison texinfo flex cmake libssl-dev liblz4-tool patchelf chrpath gawk expect-dev python2 git git-lfs expect-dev debianutils sed make binutils build-essential gcc g++ bash patch gzip bzip2 perl tar cpio unzip rsync file bc git device-tree-compiler
     
     - name: build U-boot
       working-directory: ./build
@@ -40,16 +40,21 @@ jobs:
         make -j4
         make install
   
-    - name: build rootfs
+    - name: build buildroot
       working-directory: ./build
       run: |
+        source envsetup.sh rockchip_rv1126_vision
+        cd buildroot
+        make clean
+        cd ..
         bash build.sh device/rockchip/rv1126_rv1109/vision-rv1126.mk
         bash build.sh rootfs
         
     - name: Make Firmware
       working-directory: ./build
-      run: bash mkfirmware.sh
-
+      run: |
+      bash build.sh device/rockchip/rv1126_rv1109/vision-rv1126.mk
+      bash mkfirmware.sh
 
     - name: Upload Build-log
       uses: actions/upload-artifact@v3
@@ -61,6 +66,11 @@ jobs:
     - name: Upload SDK from GitHub Action
       uses: actions/upload-artifact@v3
       with: 
-       name: artifacts
+       name: sdk
        path: ./build/rockdev
 
+    - name: Upload Firmware from GitHub Action
+      uses: actions/upload-artifact@v3
+      with: 
+       name: firmware
+       path: ./build/rockdev_sdk/vision-sdk.tar.gz
