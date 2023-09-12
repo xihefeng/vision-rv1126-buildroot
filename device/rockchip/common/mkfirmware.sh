@@ -17,6 +17,7 @@ unset_board_config_all
 
 source $TOP_DIR/device/rockchip/.BoardConfig.mk
 ROCKDEV=$TOP_DIR/rockdev
+ROCKDEV_SDK=$TOP_DIR/rockdev_sdk
 PARAMETER=$TOP_DIR/device/rockchip/$RK_TARGET_PRODUCT/$RK_PARAMETER
 if [ "${RK_OEM_DIR}x" != "x" ];then
 	OEM_DIR=$TOP_DIR/device/rockchip/oem/$RK_OEM_DIR
@@ -58,6 +59,7 @@ SPL=$TOP_DIR/u-boot/*_loader_spl.bin
 #SPINOR_LOADER=$TOP_DIR/u-boot/*_loader_spinor_v*.bin
 MKIMAGE=$SCRIPT_DIR/mk-image.sh
 mkdir -p $ROCKDEV
+mkdir -p $ROCKDEV_SDK
 
 # Require buildroot host tools to do image packing.
 #Move to mk-image.sh, for ubuntu and debian os not need
@@ -189,7 +191,7 @@ then
 	if [ -f $SDK_SOURCE_FILE ]
 	then
 		echo -n "Create SDK link form $SDK_SOURCE_FILE ..."
-		ln -rsf $SDK_SOURCE_FILE $ROCKDEV/vision-sdk.tar.gz
+		ln -rsf $SDK_SOURCE_FILE $ROCKDEV_SDK/vision-sdk.tar.gz
 		echo "done."
 	else
 		echo "warning: $SDK_SOURCE_FILE not found!"
