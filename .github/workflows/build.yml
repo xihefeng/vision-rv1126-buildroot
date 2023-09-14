@@ -37,6 +37,13 @@ jobs:
         bash build.sh device/rockchip/rv1126_rv1109/vision-rv1126.mk
         bash build.sh kernel
 
+    - name: make Kernel headers
+      working-directory: ./build
+      run: |
+        cd kernel
+        make ARCH=arm rv1126_vision_defconfig
+        make ARCH=arm INSTALL_HDR_PATH=../kernel_headers headers_install 
+
     - name: build rtl8812au
       working-directory: ./build/rtl8812au
       run: |
@@ -77,3 +84,9 @@ jobs:
       with: 
        name: SDK
        path: ./build/rockdev_sdk/vision-sdk.tar.gz
+
+    - name: Upload Kernel headers from GitHub Action
+      uses: actions/upload-artifact@v3
+      with: 
+       name: kernel headers
+       path: ./build/kernel_headers   

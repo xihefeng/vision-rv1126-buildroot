@@ -6,3 +6,5 @@ IMAGE/
 deploy/
 rockdev/
 *.o
+kernel_headers/
+
