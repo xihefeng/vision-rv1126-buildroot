@@ -59,8 +59,13 @@ jobs:
         cd ..
         bash build.sh device/rockchip/rv1126_rv1109/vision-rv1126.mk
         bash build.sh rootfs
-        
-    - name: Make Firmware
+
+    - name: build Recovery
+      working-directory: ./build
+      run: |
+        bash build.sh device/rockchip/rv1126_rv1109/vision-rv1126.mk
+        bash build.sh recovery
+
       working-directory: ./build
       run: |
         bash build.sh device/rockchip/rv1126_rv1109/vision-rv1126.mk
