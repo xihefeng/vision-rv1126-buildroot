@@ -24,7 +24,7 @@ jobs:
       id: cache-packages  # chache buildroot/dl
       with:
         path: ./build/buildroot/dl
-        key: ${{ runner.os }}-${{ hashFiles('**/*') }}  
+        key: ${{ runner.os }}-${{ hashFiles('*') }}  
         
     # - name: Install depends
     #  run: |
