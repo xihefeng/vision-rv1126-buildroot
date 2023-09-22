@@ -56,7 +56,7 @@ jobs:
         make -j4
         make install
   
-    - name: build buildroot
+    - name: build Buildroot
       working-directory: ./build
       if: steps.cache.outputs.cache-hit != 'true'
       run: |
@@ -79,6 +79,12 @@ jobs:
       run: |
         bash build.sh device/rockchip/rv1126_rv1109/vision-rv1126.mk
         bash mkfirmware.sh
+
+    - name: Make Update image
+      working-directory: ./build
+      run: |
+        bash build.sh device/rockchip/rv1126_rv1109/vision-rv1126.mk
+        bash build.sh updateimg
 
     - name: Upload Build-log
       uses: actions/upload-artifact@v3
