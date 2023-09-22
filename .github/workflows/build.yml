@@ -19,6 +19,12 @@ jobs:
       with:
         fetch-depth: 0
         path: ./build
+
+    - uses: actions/cache@v3
+      id: cache-packages  # chache buildroot/dl
+      with:
+        path: ./build/buildroot/dl
+      key: ${{ runner.os }}-${{ hashFiles('**/*') }}  
         
     # - name: Install depends
     #  run: |
@@ -52,6 +58,7 @@ jobs:
   
     - name: build buildroot
       working-directory: ./build
+      if: steps.cache.outputs.cache-hit != 'true'
       run: |
         source envsetup.sh rockchip_rv1126_vision
         cd buildroot
@@ -62,6 +69,7 @@ jobs:
 
     - name: build Recovery
       working-directory: ./build
+      if: steps.cache.outputs.cache-hit != 'true'
       run: |
         bash build.sh device/rockchip/rv1126_rv1109/vision-rv1126.mk
         bash build.sh recovery
