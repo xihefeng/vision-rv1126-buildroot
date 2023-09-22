@@ -1100,14 +1100,14 @@ function gen_file_name() {
 	IMGNAME+=_${day}.img
 
 	echo -e "File name is \e[36m $IMGNAME\e[0m"
-	read -t 10 -e -p "Rename the file? [N|y]" ANS || :
-	ANS=${ANS:-n}
+	# read -t 10 -e -p "Rename the file? [N|y]" ANS || :
+	# ANS=${ANS:-n}
 
-	case $ANS in
-			Y|y|yes|YES|Yes) rename=1;;
-			N|n|no|NO|No) rename=0;;
-			*) rename=0;;
-	esac
+	# case $ANS in
+	# 		Y|y|yes|YES|Yes) rename=1;;
+	# 		N|n|no|NO|No) rename=0;;
+	# 		*) rename=0;;
+	# esac
 	if [[ ${rename} == "1" ]]; then
 		read -e -p "Enter new file name: " -i $IMGNAME newname
 		IMGNAME=$newname
