@@ -96,31 +96,31 @@
 		};
 	};
 
-	// imx219: imx219@10 {
-	// 	compatible = "sony,imx219";
-	// 	reg = <0x10>;
-	// 	clocks = <&cru CLK_MIPICSI_OUT>;
-	// 	clock-names = "xvclk";
-	// 	power-domains = <&power RV1126_PD_VI>;
-	// 	pinctrl-names = "rockchip,camera_default";
-	// 	pinctrl-0 = <&mipicsi_clk1>;
-	// 	avdd-supply = <&vcc3v3_sys>;
-	// 	dovdd-supply = <&vcc3v3_sys>;
-	// 	dvdd-supply = <&vcc3v3_sys>;
-	// 	reset-gpios = <&gpio1 RK_PD5 GPIO_ACTIVE_HIGH>;
-	// 	pwd-gpios = <&gpio2 RK_PA1 GPIO_ACTIVE_HIGH>;
-	// 	rockchip,camera-module-index = <2>;
-	// 	rockchip,camera-module-facing = "front";
-	// 	rockchip,camera-module-name = "YT10092";
-	// 	rockchip,camera-module-lens-name = "IR0147-28IRC-8M-F20";
+	imx219: imx219@10 {
+		compatible = "sony,imx219";
+		reg = <0x10>;
+		clocks = <&cru CLK_MIPICSI_OUT>;
+		clock-names = "xvclk";
+		power-domains = <&power RV1126_PD_VI>;
+		pinctrl-names = "rockchip,camera_default";
+		pinctrl-0 = <&mipicsi_clk1>;
+		avdd-supply = <&vcc3v3_sys>;
+		dovdd-supply = <&vcc3v3_sys>;
+		dvdd-supply = <&vcc3v3_sys>;
+		// reset-gpios = <&gpio1 RK_PD5 GPIO_ACTIVE_HIGH>;
+		// pwd-gpios = <&gpio2 RK_PA1 GPIO_ACTIVE_HIGH>;
+		rockchip,camera-module-index = <1>;
+		rockchip,camera-module-facing = "front";
+		rockchip,camera-module-name = "YT10092";
+		rockchip,camera-module-lens-name = "IR0147-28IRC-8M-F20";
 
-	// 	port {
-	// 		imx219_out0: endpoint {
-	// 			remote-endpoint = <&mipi_in_ucam1>;
-	// 			data-lanes = <1 2 3 4>;
-	// 		};
-	// 	};
-	// };
+		port {
+			imx219_out0: endpoint {
+				remote-endpoint = <&mipi_in_ucam1>;
+				data-lanes = <1 2 3 4>;
+			};
+		};
+	};
 };
 
 
@@ -154,35 +154,35 @@
 	};
 };
 
-// &csi_dphy1 {
-// 	status = "okay";
-// 	ports {
-// 		#address-cells = <1>;
-// 		#size-cells = <0>;
-// 		port@0 {
-// 			reg = <0>;
-// 			#address-cells = <1>;
-// 			#size-cells = <0>;
-// 			mipi_in_ucam1: endpoint@1 {
-// 				reg = <1>;
-// 				// The port name of the sensor
-// 				remote-endpoint = <&imx219_out0>;
-// 				// mipi lane number，1lane is <1>, 4lane is <1 2 3 4>
-// 				data-lanes = <1 2 3 4>;
-// 			};
-// 		};
-// 		port@1 {
-// 			reg = <1>;
-// 			#address-cells = <1>;
-// 			#size-cells = <0>;
-// 			csidphy1_out: endpoint@0 {
-// 				reg = <0>;
-// 				// name of isp port
-// 				remote-endpoint = <&isp1_in>;
-// 			};
-// 		};
-// 	};
-// };
+&csi_dphy1 {
+	status = "okay";
+	ports {
+		#address-cells = <1>;
+		#size-cells = <0>;
+		port@0 {
+			reg = <0>;
+			#address-cells = <1>;
+			#size-cells = <0>;
+			mipi_in_ucam1: endpoint@1 {
+				reg = <1>;
+				// The port name of the sensor
+				remote-endpoint = <&imx219_out0>;
+				// mipi lane number，1lane is <1>, 4lane is <1 2 3 4>
+				data-lanes = <1 2 3 4>;
+			};
+		};
+		port@1 {
+			reg = <1>;
+			#address-cells = <1>;
+			#size-cells = <0>;
+			csidphy1_out: endpoint@0 {
+				reg = <0>;
+				// name of isp port
+				remote-endpoint = <&isp1_in>;
+			};
+		};
+	};
+};
 
 &rkisp_mmu{
 	//status = "okay";
@@ -225,33 +225,33 @@
 	};
 };
 
-// &rkisp_vir1 {
-// 	status = "okay";
-// 	ports {
-// 		#address-cells = <1>;
-// 		#size-cells = <0>;
-// 		port@0 {
-// 			reg = <0>;
-// 			#address-cells = <1>;
-// 			#size-cells = <0>;
-// 			isp1_in: endpoint@0 {
-// 				reg = <0>;
-// 				// name of mipi dphy port
-// 				remote-endpoint = <&csidphy1_out>;
-// 			};
-// 		};
-// 		port@1 {
-// 			reg = <1>;
-// 			#address-cells = <1>;
-// 			#size-cells = <0>;
-// 			isp1_out: endpoint@1 {
-// 				reg = <1>;
-// 				// ispp port name, isp output to ispp
-// 				remote-endpoint = <&ispp1_in>;
-// 				};
-// 		};
-// 	};
-// };
+&rkisp_vir1 {
+	status = "okay";
+	ports {
+		#address-cells = <1>;
+		#size-cells = <0>;
+		port@0 {
+			reg = <0>;
+			#address-cells = <1>;
+			#size-cells = <0>;
+			isp1_in: endpoint@0 {
+				reg = <0>;
+				// name of mipi dphy port
+				remote-endpoint = <&csidphy1_out>;
+			};
+		};
+		port@1 {
+			reg = <1>;
+			#address-cells = <1>;
+			#size-cells = <0>;
+			isp1_out: endpoint@1 {
+				reg = <1>;
+				// ispp port name, isp output to ispp
+				remote-endpoint = <&ispp1_in>;
+				};
+		};
+	};
+};
 
 &rkispp_mmu{
 	//status = "okay";
@@ -279,16 +279,16 @@
 	};
 };
 
-// &rkispp_vir1 {
-// 	status = "okay";
-// 	port {
-// 		#address-cells = <1>;
-// 		#size-cells = <0>;
-// 		Ispp1_in: endpoint@0 {
-// 			reg = <0>;
-// 			// isp port name, ispp input
-// 			remote-endpoint = <&isp1_out>;
-// 		};
-// 	};
-// };
+&rkispp_vir1 {
+	status = "okay";
+	port {
+		#address-cells = <1>;
+		#size-cells = <0>;
+		Ispp1_in: endpoint@0 {
+			reg = <0>;
+			// isp port name, ispp input
+			remote-endpoint = <&isp1_out>;
+		};
+	};
+};
 
