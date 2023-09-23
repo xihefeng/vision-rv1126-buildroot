@@ -86,12 +86,12 @@ jobs:
         bash build.sh device/rockchip/rv1126_rv1109/vision-rv1126.mk
         bash build.sh updateimg
 
-    - name: Upload Build-log
-      uses: actions/upload-artifact@v3
-      if: always()
-      with: 
-       name: build.log
-       path: ./build/br.log
+    # - name: Upload Build-log
+    #   uses: actions/upload-artifact@v3
+    #   if: always()
+    #   with: 
+    #    name: build.log
+    #    path: ./build/br.log
 
     - name: Upload Firmware from GitHub Action
       uses: actions/upload-artifact@v3
