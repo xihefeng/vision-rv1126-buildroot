@@ -20,11 +20,11 @@ jobs:
         fetch-depth: 0
         path: ./build
 
-    - uses: actions/cache@v3
-      id: cache-packages  # chache buildroot/dl
-      with:
-        path: ./build/buildroot/dl
-        key: ${{ runner.os }}-${{ hashFiles('build/buildroot/dl/*') }}  
+    # - uses: actions/cache@v3
+    #   id: cache-packages  # chache buildroot/dl
+    #   with:
+    #     path: ./build/buildroot/dl
+    #     key: ${{ runner.os }}-${{ hashFiles('build/buildroot/dl/*') }}  
         
     # - name: Install depends
     #  run: |
@@ -58,7 +58,7 @@ jobs:
   
     - name: build Buildroot
       working-directory: ./build
-      if: steps.cache.outputs.cache-hit != 'true'
+      # if: steps.cache.outputs.cache-hit != 'true'
       run: |
         source envsetup.sh rockchip_rv1126_vision
         cd buildroot
