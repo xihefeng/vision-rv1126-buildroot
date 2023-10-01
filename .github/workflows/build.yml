@@ -42,6 +42,7 @@ jobs:
       run: |
         bash build.sh device/rockchip/rv1126_rv1109/vision-rv1126.mk
         bash build.sh kernel
+        make ARCH=arm modules_install INSTALL_MOD_PATH=../deploy/modules
 
     - name: make Kernel headers
       working-directory: ./build
