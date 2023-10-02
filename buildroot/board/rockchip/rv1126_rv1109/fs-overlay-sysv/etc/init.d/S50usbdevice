@@ -85,7 +85,7 @@ configfs_init()
 	fi
 	echo $SERIAL > ${USB_STRINGS_DIR}/serialnumber
 	echo "rockchip"  > ${USB_STRINGS_DIR}/manufacturer
-	echo "rk3xxx"  > ${USB_STRINGS_DIR}/product
+	echo "vison-rv1126"  > ${USB_STRINGS_DIR}/product
 
 	function_init
 
