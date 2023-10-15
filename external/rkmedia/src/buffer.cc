@@ -33,6 +33,7 @@ MediaBuffer::MemType StringToMemType(const char *s) {
 }
 
 static int free_common_memory(void *buffer) {
+  RKMEDIA_LOGD("%s: ptr:%p\n", __func__, buffer);
   if (buffer)
     free(buffer);
 
@@ -41,8 +42,11 @@ static int free_common_memory(void *buffer) {
 
 static MediaBuffer alloc_common_memory(size_t size) {
   void *buffer = malloc(size);
-  if (!buffer)
+  if (!buffer) {
+    RKMEDIA_LOGE("%s: no space left!\n", __func__);
     return MediaBuffer();
+  }
+
   RKMEDIA_LOGD("%s: ptr:%p, fd:%d, handle:%u, dev_fd:%d, size:%u\n", __func__,
                buffer, -1, 0, -1, size);
   return MediaBuffer(buffer, size, -1, 0, -1, buffer, free_common_memory);
@@ -50,8 +54,10 @@ static MediaBuffer alloc_common_memory(size_t size) {
 
 static MediaGroupBuffer *alloc_common_memory_group(size_t size) {
   void *buffer = malloc(size);
-  if (!buffer)
+  if (!buffer) {
+    RKMEDIA_LOGE("%s: no space left!\n", __func__);
     return nullptr;
+  }
   MediaGroupBuffer *mgb =
       new MediaGroupBuffer(buffer, size, -1, 0, -1, buffer, free_common_memory);
 
@@ -339,8 +345,10 @@ public:
 };
 
 static int free_drm_memory(void *buffer) {
-  assert(buffer);
-  delete static_cast<DrmBuffer *>(buffer);
+  RKMEDIA_LOGD("%s: ptr:%p\n", __func__, buffer);
+  if (buffer) {
+    delete (DrmBuffer*)buffer;
+  }
   return 0;
 }
 

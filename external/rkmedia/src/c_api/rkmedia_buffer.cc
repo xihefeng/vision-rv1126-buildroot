@@ -84,17 +84,17 @@ RK_U64 RK_MPI_MB_GetTimestamp(MEDIA_BUFFER mb) {
 }
 
 RK_S32 RK_MPI_MB_ReleaseBuffer(MEDIA_BUFFER mb) {
-  MEDIA_BUFFER_IMPLE *mb_impl = (MEDIA_BUFFER_IMPLE *)mb;
   if (!mb)
     return -RK_ERR_SYS_ILLEGAL_PARAM;
 
+  MEDIA_BUFFER_IMPLE *mb_impl = (MEDIA_BUFFER_IMPLE *)mb;
   if (mb_impl->rkmedia_mb)
     mb_impl->rkmedia_mb.reset();
 
   delete mb_impl;
 
   g_handle_mb_mutex.lock();
-  for (auto it = g_handle_mb.begin(); it != g_handle_mb.end(); ++it) {
+  for (auto it = g_handle_mb.begin(); it != g_handle_mb.end(); it++) {
     auto p = *it;
     if (p->mb == mb) {
       g_handle_mb.erase(it);
