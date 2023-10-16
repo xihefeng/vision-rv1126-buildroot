@@ -4,6 +4,9 @@
 # Start all init scripts in /etc/init.d
 # executing them in numerical order.
 #
+
+source /etc/profile
+
 for i in /etc/init.d/S??* ;do
 
      # Ignore dangling symlinks (if any).
@@ -21,6 +24,11 @@ for i in /etc/init.d/S??* ;do
 	*)
 	    # No sh extension, so fork subprocess.
 	    $i start
+	    error_value=$?
+	    if [ $error_value != 0 ]
+            then
+                  echo "FAILURE start $i"
+            fi
 	    ;;
     esac
 done

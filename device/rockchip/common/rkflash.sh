@@ -30,7 +30,7 @@ fi
 
 if [ $FLASH_TYPE = all ]
 then
-	$UPGRADETOOL ul -noreset $LOADER
+	$UPGRADETOOL ul  $LOADER
 	$UPGRADETOOL di -p $PARAMETER
 	$UPGRADETOOL di -uboot $UBOOT
 	$UPGRADETOOL di -trust $TRUST

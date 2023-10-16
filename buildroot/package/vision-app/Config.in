@@ -12,4 +12,5 @@ source "package/vision-app/msp2udp/Config.in"
 source "package/vision-app/msp-service/Config.in"
 source "package/vision-app/wfb-ng/Config.in"
 source "package/vision-app/vision-initd/Config.in"
+source "package/vision-app/vision-services/Config.in"
 endif
