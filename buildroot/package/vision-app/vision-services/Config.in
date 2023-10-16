@@ -1,0 +1,64 @@
+config BR2_PACKAGE_VISION_SERVICES
+	bool "Vision services"
+	select BR2_PACKAGE_SYSLOG_NG
+	select BR2_PACKAGE_RK_OEM
+	default n
+	help
+		Vision services 
+
+menu "Services"
+	depends on BR2_PACKAGE_VISION_SERVICES
+
+config BR2_PACKAGE_VISION_AUTOPILOT_SERVICE
+	bool "Auto pilot service"
+	depends on BR2_PACKAGE_VISION_SERVICES
+	default y
+
+config BR2_PACKAGE_VISION_CAMERA_SERVICE
+	bool "Camera service"
+	depends on BR2_PACKAGE_VISION_SERVICES
+	select BR2_PACKAGE_CAMERA_ENGINE 
+	select BR2_PACKAGE_RKMEDIA
+	select BR2_PACKAGE_LIBPNG
+	default y
+
+config BR2_PACKAGE_VISION_DETECTION_SERVICE
+	bool "Object detection service"
+	depends on BR2_PACKAGE_VISION_SERVICES
+	select BR2_PACKAGE_RKNPU 
+	select BR2_PACKAGE_RKNPU_USE_RKNN_API
+	select BR2_PACKAGE_RKMEDIA_RKRGA
+	default y
+
+config BR2_PACKAGE_VISION_TRACKER_SERVICE
+	bool "Object tracker service"
+	depends on BR2_PACKAGE_VISION_SERVICES
+	default y
+
+config BR2_PACKAGE_VISION_DISPALY_SERVICE
+	bool "Dispaly service"
+	depends on BR2_PACKAGE_VISION_SERVICES
+	default y
+
+config BR2_PACKAGE_VISION_MSP_SERVICE
+	bool "MSP service"
+	depends on BR2_PACKAGE_VISION_SERVICES
+	default y
+
+config BR2_PACKAGE_VISION_QR_SCAN_SERVICE
+	bool "QR scanner service"
+	depends on BR2_PACKAGE_VISION_SERVICES
+	default y
+
+config BR2_PACKAGE_VISION_VIDEO_SERVICE
+	bool "Video service"
+	depends on BR2_PACKAGE_VISION_SERVICES
+	default y
+
+config BR2_PACKAGE_VISION_OSD_SERVICE
+	bool "OSD-Config service"
+	depends on BR2_PACKAGE_VISION_SERVICES
+	default y
+
+endmenu
+

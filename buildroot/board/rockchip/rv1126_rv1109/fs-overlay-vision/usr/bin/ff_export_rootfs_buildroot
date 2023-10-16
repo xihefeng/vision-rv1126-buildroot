@@ -1,0 +1,192 @@
+#!/bin/bash
+
+function showhelp()
+{
+	echo -e "
+	ff_export_rootfs_buildroot </path/to/store> [-t <ext4|btrfs>]
+	"
+	exit -1
+}
+
+function clead_target_rootfs()
+{
+	ROOT_DIR=$1
+	rm -rf ${ROOT_DIR}/tmp/*
+	find ${ROOT_DIR}/var/log/ -type f -exec rm {} \;
+
+    for item in $(ls ${ROOT_DIR}/media/ 2>/dev/null); do
+        if id ${item} > /dev/null 2>&1
+        then
+            chown -R ${item}:${item} ${ROOT_DIR}/media/${item}
+        fi
+    done
+
+    if [[ -L "${ROOT_DIR}/var/lib/docker" ]]
+    then
+        orig_dir=$(readlink "${ROOT_DIR}/var/lib/docker")
+        if [[ ! -d ${ROOT_DIR}/${orig_dir} ]]
+        then
+            rm -rf "${ROOT_DIR}/var/lib/docker"
+            rsync -aqx "${orig_dir}/" "${ROOT_DIR}/var/lib/docker"
+        fi
+    fi
+}
+
+function umount_img() {
+	if mountpoint -q $TEMP_MOUNT_POINT; then
+		umount $TEMP_MOUNT_POINT
+	fi
+	rm -rf $TEMP_MOUNT_POINT
+}
+
+function finish() {
+	umount_img
+	exit -1
+}
+
+[[ $UID -ne 0 ]] && echo -e "\033[31m should run as root \033[0m" && showhelp
+[[ -n "$(which rsync)" ]] || { echo -e " rsync not found\n\033[31m install rsync \033[0m"; exit -1; }
+[[ $# -lt 1 ]] && showhelp;
+
+[[ "$1" == "-u" ]] && { PORT_UPPER="1"; shift; }
+
+DEST_PATH=$1
+MEDIA_DEVICE=
+STORE_FS_TYPE=
+
+[[ -d $DEST_PATH ]] || { echo -e "\033[31m store path not exist \033[0m"; exit -1; }
+
+if [[ $# -eq 3 ]] && [[ $2 == "-t" ]]; then
+	case $3 in
+		ext4|btrfs)
+			STORE_FS_TYPE=$3
+			;;
+		*)
+			showhelp
+			;;
+	esac
+fi
+
+PORT_OVERLAYROOT=false
+
+ROOTFS_DEVICE=`findmnt -n -o SOURCE --target /`
+if [[ "${ROOTFS_DEVICE}" == "overlayroot" ]]; then
+	PORT_OVERLAYROOT=true
+	OVERLAY_MOUNT=$(mount | sed -n '/^overlayroot/p')
+	UPPER_MOUNTPOINT=$(echo ${OVERLAY_MOUNT} | grep -Eo "upperdir.*" | cut -f 1 -d , | cut -f 2 -d =)
+	LOWER_MOUNTPOINT=$(echo ${OVERLAY_MOUNT} | grep -Eo "lowerdir.*" | cut -f 1 -d , | cut -f 2 -d =)
+
+	LOWER_DEVICE=$(findmnt -n -o SOURCE --target ${LOWER_MOUNTPOINT})
+	UPPER_DEVICE=$(findmnt -n -o SOURCE --target ${UPPER_MOUNTPOINT})
+
+	if [[ "${PORT_UPPER}" == "1" ]]; then
+		PORT_OVERLAYROOT=false
+		ROOTFS_DEVICE=${UPPER_DEVICE}
+		ROOTFS_MOUNTPOINT=${UPPER_MOUNTPOINT}/
+
+		ROOTFS_TYPE=$(blkid -o value -s TYPE ${ROOTFS_DEVICE})
+		ROOTFS_PARTLABEL=$(lsblk -n -o PARTLABEL ${ROOTFS_DEVICE})
+		[[ -n "${ROOTFS_PARTLABEL}" ]] || ROOTFS_PARTLABEL="userdata"
+	else
+		ROOTFS_MOUNTPOINT="/"
+
+		ROOTFS_TYPE=$(blkid -o value -s TYPE ${LOWER_DEVICE})
+		ROOTFS_PARTLABEL=$(lsblk -n -o PARTLABEL ${LOWER_DEVICE})
+		[[ -n "${ROOTFS_PARTLABEL}" ]] || ROOTFS_PARTLABEL="rootfs"
+	fi
+else
+	if [[ "${ROOTFS_DEVICE}" == "/dev/root" ]]; then
+
+		MAJOR_ROOTFS=$(mountpoint -d / | cut -f 1 -d ":")
+		MINOR_ROOTFS=$(mountpoint -d / | cut -f 2 -d ":")
+		DEV_ROOTFS=$(cat /proc/partitions | awk {'if ($1 == "'${MAJOR_ROOTFS}'" && $2 == "'${MINOR_ROOTFS}'") print $4 '})
+		ROOTFS_DEVICE=/dev/${DEV_ROOTFS}
+	fi
+
+	PORT_OVERLAYROOT=false
+	ROOTFS_MOUNTPOINT="/"
+
+	ROOTFS_TYPE=$(blkid -o value -s TYPE ${ROOTFS_DEVICE})
+	ROOTFS_PARTLABEL=$(lsblk -n -o PARTLABEL ${ROOTFS_DEVICE})
+	[[ -n "${ROOTFS_PARTLABEL}" ]] || ROOTFS_PARTLABEL="rootfs"
+fi
+
+#MEDIA_DEVICE=`findmnt -n -o SOURCE --target $DEST_PATH`
+MEDIA_FS_TYPE=`df $DEST_PATH --output=fstype | awk 'NR==2 {print $1}'`
+MEDIA_FREE_SPACE=`df $DEST_PATH -m --output=avail | awk 'NR==2 {print $1}'`
+
+#[[ $MEDIA_DEVICE != $ROOTFS_DEVICE ]] || { echo -e "\033[31m can not store in local device \033[0m"; exit -1; }
+#[[ $MEDIA_FS_TYPE != "vfat" ]] || { echo -e "\033[31m store media fs type cannot be FAT \033[0m"; exit -1; }
+
+if [[ $ROOTFS_TYPE == "btrfs" ]]; then
+	ROOTFS_SIZE=`btrfs filesystem usage -m / | grep "Device allocated" | awk '{print $3}'`
+else
+	if [[ "${PORT_OVERLAYROOT}" == "true" ]]; then
+			LOWER_SIZE=$(du -s -k "${LOWER_MOUNTPOINT}" |sed -r -e 's/[[:space:]]+.*$//')
+			UPPER_SIZE=$(du -s -k "${UPPER_MOUNTPOINT}" |sed -r -e 's/[[:space:]]+.*$//')
+			ROOTFS_SIZE=$((LOWER_SIZE+UPPER_SIZE))
+	else
+			ROOTFS_SIZE=`df ${ROOTFS_MOUNTPOINT} -k --output=used | awk 'NR==2 {print $1}'`
+	fi
+fi
+
+IMAGE_SIZE=$((ROOTFS_SIZE>>10))
+IMAGE_SIZE=$((IMAGE_SIZE+IMAGE_SIZE/10+300))
+echo -e "MEDIA FREE SPACE SIZE \t $MEDIA_FREE_SPACE \t MBytes"
+echo -e "EXPORT IMAGE SIZE \t $IMAGE_SIZE \t MBytes"
+
+if [[ $MEDIA_FREE_SPACE -lt $IMAGE_SIZE ]]; then
+    echo -e "\033[31m No enough free space on $MOUNT_POINT \033[0m"
+	exit -1
+fi
+
+[[ $STORE_FS_TYPE != "" ]] || STORE_FS_TYPE=$ROOTFS_TYPE
+
+CURDATE=`date "+%Y%m%d%H%M"`
+IMAGE_FILE=$DEST_PATH/Firefly_Buildroot_${STORE_FS_TYPE}_$CURDATE.img
+TEMP_MOUNT_POINT=`mktemp -d -p $DEST_PATH`
+
+set -e
+trap finish ERR INT
+
+if [[ $STORE_FS_TYPE == "btrfs" ]]; then
+	truncate -s ${IMAGE_SIZE}M $IMAGE_FILE
+    mkfs.btrfs -fq -L $ROOTFS_PARTLABEL $IMAGE_FILE
+    mount -t btrfs -o noatime,compress=lzo $IMAGE_FILE $TEMP_MOUNT_POINT
+    btrfs subvolume create $TEMP_MOUNT_POINT/root
+	umount $TEMP_MOUNT_POINT
+    mount -t btrfs -o noatime,compress=lzo,subvol=root $IMAGE_FILE $TEMP_MOUNT_POINT
+else
+	INODE_COUNT=$(find "${ROOTFS_MOUNTPOINT}" 2>/dev/null | wc -l)
+	INODE_COUNT=$((INODE_COUNT+512))
+	BLOCK_COUNT=$((2000+(ROOTFS_SIZE+INODE_COUNT/4)*12/10))
+	echo BLOCK_COUNT $BLOCK_COUNT
+	echo INODE_COUNT $INODE_COUNT
+
+	mkfs.ext4 -Fq -L $ROOTFS_PARTLABEL -b 1024 -I 128 -N $INODE_COUNT $IMAGE_FILE $BLOCK_COUNT
+	mount $IMAGE_FILE $TEMP_MOUNT_POINT
+fi
+
+echo "sync..."
+rsync -aqx --delete --exclude={"$IMAGE_FILE","$TEMP_MOUNT_POINT"} ${ROOTFS_MOUNTPOINT} ${TEMP_MOUNT_POINT}
+echo "sync finish"
+
+set +e
+trap - ERR
+
+clead_target_rootfs ${TEMP_MOUNT_POINT}
+while IFS= read -r LINE
+do
+	[ "${LINE}" == "/" ] && continue
+	E_FILE="${TEMP_MOUNT_POINT}/${LINE}"
+	[[ -e "${E_FILE}" ]] && rm -rf "${E_FILE}"
+done < <(findmnt -n -lo TARGET -t ext4,ext3,ext2,vat)
+mkdir -p "${TEMP_MOUNT_POINT}/oem"
+
+umount_img
+
+if [[ "${STORE_FS_TYPE}" == "ext4" ]]; then
+	e2fsck -fy ${IMAGE_FILE} 2>&1 > /dev/null
+    tune2fs -C 1 -c 0 -i 0 -e "remount-ro" ${IMAGE_FILE} 2>&1 > /dev/null
+fi
+echo -e "\033[31m Export rootfs to $IMAGE_FILE Success \033[0m"
