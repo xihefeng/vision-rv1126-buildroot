@@ -163,7 +163,7 @@ make savedefconfig
 ```
 
 
-# How to flash 
+# How to flash
 
 `upgrade_tool` stored in folder `tools/linux/Linux_Upgrade_Tool/Linux_Upgrade_Tool/upgrade_tool`
 
@@ -184,15 +184,46 @@ sudo ./upgrade_tool rd
 
 Second method - use [rkdeveloptool](https://github.com/rockchip-linux/rkdeveloptool)https://github.com/rockchip-linux/rkdeveloptool
 
-#### Upgrade
+
+## Flashing over UBOOT
+For flashing new firmware to device using uboot make shure that you have connected debug UART interface
+
+Connect to UART device via any available terminal for instance monicom 
+```shell
+# Need to solder uart debug wires 
+sudo minicom -D /dev/ttyUSBx
+```
+Quickly press CTRL+C while the device reboots until the uboot terminal appears
+[Alt text](<Screenshot from 2023-10-16 22-25-25.png>)
+
+```shell
+# Activate usb device as bridge to write new buildroot to mmc
+rockusb 0 mmc 0
+```
+
+Upgrade the whole update.img firmware after packaging:
+
+```shell
+sudo ./upgrade_tool uf rockdev/update.img
+```
+Or in root directory, run the following command on your device to upgrade in MASKROM state:
+
+```shell
+sudo ./rkflash.sh
+```
+
+## Flashing over boot button
+
+Press boot button or short off the two pads like on the picture
+
+![Alt text](photo_2023-10-16_22-37-26.jpg)
+
+Run upgrade utility
+
 Upgrade the whole update.img firmware after packaging:
 
 ```shell
 sudo ./upgrade_tool uf rockdev/update.img
 ```
 
-Or in root directory, run the following command on your device to upgrade in MASKROM state:
-
-```shell
-sudo ./rkflash.sh
-```
+After successfully start of upgrading release the button
