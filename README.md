@@ -194,7 +194,7 @@ Connect to UART device via any available terminal for instance monicom
 sudo minicom -D /dev/ttyUSBx
 ```
 Quickly press CTRL+C while the device reboots until the uboot terminal appears
-[Alt text](<Screenshot from 2023-10-16 22-25-25.png>)
+[Alt text](docs/img/minicom.png)
 
 ```shell
 # Activate usb device as bridge to write new buildroot to mmc
@@ -216,7 +216,7 @@ sudo ./rkflash.sh
 
 Press boot button or short off the two pads like on the picture
 
-![Alt text](photo_2023-10-16_22-37-26.jpg)
+![Alt text](docs/img/pcb_boot.jpg)
 
 Run upgrade utility
 
