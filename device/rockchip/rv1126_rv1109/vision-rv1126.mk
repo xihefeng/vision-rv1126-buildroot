@@ -26,3 +26,5 @@ export RK_USERDATA_DIR=userdata_empty
 export RK_LOADER_UPDATE_SPL=true
 # PRODUCT MODEL
 export RK_PRODUCT_MODEL=AIO_1126_JD4
+# parameter for GPT table
+export RK_PARAMETER=parameter-buildroot-vision.txt
