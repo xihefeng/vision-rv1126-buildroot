@@ -49,6 +49,7 @@ config BR2_PACKAGE_VISION_QR_SCAN_SERVICE
 	bool "QR scanner service"
 	depends on BR2_PACKAGE_VISION_SERVICES
 	select BR2_PACKAGE_ZBAR
+	select BR2_PACKAGE_CJSON
 	default y
 
 config BR2_PACKAGE_VISION_VIDEO_SERVICE
