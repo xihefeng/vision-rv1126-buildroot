@@ -188,13 +188,17 @@ Second method - use [rkdeveloptool](https://github.com/rockchip-linux/rkdevelopt
 ## Flashing over UBOOT
 For flashing new firmware to device using uboot make shure that you have connected debug UART interface
 
-Connect to UART device via any available terminal for instance monicom 
+Solder 3 wires to debug UART
+![](docs/img/vision_v1.3_bot.PNG)
+
+
+Connect to UART device via any available terminal for instance monicom
 ```shell
 # Need to solder uart debug wires 
 sudo minicom -D /dev/ttyUSBx
 ```
 Quickly press CTRL+C while the device reboots until the uboot terminal appears
-[Alt text](docs/img/minicom.png)
+![](docs/img/minicom.png)
 
 ```shell
 # Activate usb device as bridge to write new buildroot to mmc
@@ -216,7 +220,7 @@ sudo ./rkflash.sh
 
 Press boot button or short off the two pads like on the picture
 
-![Alt text](docs/img/pcb_boot.jpg)
+![](docs/img/vision_v1.3_top.PNG)
 
 Run upgrade utility
 
