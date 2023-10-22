@@ -99,7 +99,9 @@ endef
 
 # need fix typo "dsiplayport" in source file 'src/services/osd/src/osd_displayport/osd_displayport.c'
 define VISION_SERVICES_INSTALL_FONTS
-	$(INSTALL) -D -m  644 $(@D)/assets/fonts/* "${TARGET_DIR}/etc/dsiplayport/" \
+	mkdir -p "${TARGET_DIR}/etc/dsiplayport/"
+	mkdir -p "${BR2_PACKAGE_RK_OEM_INSTALL_TARGET_DIR}/fonts/" 
+	$(INSTALL) -D -m  644 $(@D)/assets/fonts/* "${TARGET_DIR}/etc/dsiplayport/"
 	$(INSTALL) -D -m  644 $(@D)/assets/fonts/* "${BR2_PACKAGE_RK_OEM_INSTALL_TARGET_DIR}/fonts/" 
 endef
 
