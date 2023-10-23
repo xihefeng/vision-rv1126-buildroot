@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-VISION_SERVICES_VERSION = 0.0.13
+VISION_SERVICES_VERSION = 0.0.14
 VISION_SERVICES_SITE = ssh://git@gitlab.hard-tech.org.ua/vision/vision-services.git
 VISION_SERVICES_SITE_METHOD = git
 VISION_SERVICES_INSTALL_STAGING = NO
@@ -97,11 +97,11 @@ define VISION_SERVICES_INSTALL_AI_MODEL
 	$(INSTALL) -D -m  644 $(@D)/assets/default_model.rknn ${BR2_PACKAGE_RK_OEM_INSTALL_TARGET_DIR}/ai_model/default_model.rknn
 endef
 
-# need fix typo "dsiplayport" in source file 'src/services/osd/src/osd_displayport/osd_displayport.c'
+
 define VISION_SERVICES_INSTALL_FONTS
-	mkdir -p "${TARGET_DIR}/etc/dsiplayport/"
+	mkdir -p "${TARGET_DIR}/etc/displayport/"
 	mkdir -p "${BR2_PACKAGE_RK_OEM_INSTALL_TARGET_DIR}/fonts/" 
-	$(INSTALL) -D -m  644 $(@D)/assets/fonts/* "${TARGET_DIR}/etc/dsiplayport/"
+	$(INSTALL) -D -m  644 $(@D)/assets/fonts/* "${TARGET_DIR}/etc/displayport/"
 	$(INSTALL) -D -m  644 $(@D)/assets/fonts/* "${BR2_PACKAGE_RK_OEM_INSTALL_TARGET_DIR}/fonts/" 
 endef
 
