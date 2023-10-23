@@ -300,10 +300,8 @@ syslink_function()
 
 fixed_rndis_mac()
 {
-    backup=/dev/block/by-name/backup
-    file=/tmp/tmp_mac
+    file=/etc/rndis_mac
 
-    # rndis Mac 地址写入 backup 分区，开机校验分区是否存在 Mac 地址
     HOST_MAC=$(cat $file  | cut -c1-100 | grep HOST_MAC | awk -F '=' '{print $2}')
     if [ -n "$HOST_MAC" ];then
 	    echo $HOST_MAC > ${USB_FUNCTIONS_DIR}/rndis.gs0/host_addr
