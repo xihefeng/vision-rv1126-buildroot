@@ -1,0 +1,2 @@
+# Don't ask root password in case root pasword is empty
+DROPBEAR_ARGS="-B"
