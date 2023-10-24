@@ -12,7 +12,7 @@ sudo apt-get install -y bison texinfo flex cmake libssl-dev liblz4-tool patchelf
 
 Clone project  
 ```shell
-git clone git@github.com:Military-Vehicle-Detection/vision-rv1126.git
+git clone git@gitlab.hard-tech.org.ua:vision/vision-rv1126-buildroot.git
 cd vision-rv1126
 ```
 
