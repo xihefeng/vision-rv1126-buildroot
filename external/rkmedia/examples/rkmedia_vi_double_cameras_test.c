@@ -20,7 +20,7 @@
 static int video_width = 1920;
 static int video_height = 1080;
 static int disp_width = 720;
-static int disp_height = 1280;
+static int disp_height = 576;
 
 static bool quit = false;
 static void sigterm_handler(int sig) {

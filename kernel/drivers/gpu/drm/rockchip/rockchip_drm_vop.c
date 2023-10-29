@@ -313,6 +313,11 @@ static const struct drm_bus_format_enum_list drm_bus_format_enum_list[] = {
 	{ MEDIA_BUS_FMT_RGB888_1X24, "RGB888_1X24" },
 	{ MEDIA_BUS_FMT_RGB888_1X7X4_SPWG, "RGB888_1X7X4_SPWG" },
 	{ MEDIA_BUS_FMT_RGB888_1X7X4_JEIDA, "RGB888_1X7X4_JEIDA" },
+	{ MEDIA_BUS_FMT_YUYV8_2X8, "YUYV8 2X8" },
+	{ MEDIA_BUS_FMT_UV8_1X8, "UV8 1X8" },
+	{ MEDIA_BUS_FMT_Y8_1X8, "Y8 1X8" },
+	{ MEDIA_BUS_FMT_Y10_1X10, "Y10 1X10" },
+	{ MEDIA_BUS_FMT_YUYV8_1X16, "YUYV8 1X16" },
 };
 
 static DRM_ENUM_NAME_FN(drm_get_bus_format_name, drm_bus_format_enum_list)
@@ -583,6 +588,8 @@ static enum vop_data_format vop_convert_format(uint32_t format)
 	case DRM_FORMAT_NV24:
 	case DRM_FORMAT_NV24_10:
 		return VOP_FMT_YUV444SP;
+	case DRM_FORMAT_YUV422:
+		return VOP_FMT_YUV422SP;
 	case DRM_FORMAT_YUYV:
 		return VOP_FMT_YUYV;
 	default:
@@ -602,7 +609,8 @@ static bool is_uv_swap(uint32_t bus_format, uint32_t output_mode)
 	 *
 	 * From H/W testing, YUV444 mode need a rb swap.
 	 */
-	if ((bus_format == MEDIA_BUS_FMT_YUV8_1X24 ||
+	if ((bus_format == MEDIA_BUS_FMT_YUV8_1X24 || 
+		 bus_format == MEDIA_BUS_FMT_UV8_1X8 ||
 	     bus_format == MEDIA_BUS_FMT_YUV10_1X30) &&
 	    (output_mode == ROCKCHIP_OUT_MODE_AAAA ||
 	     output_mode == ROCKCHIP_OUT_MODE_P888))
@@ -619,7 +627,15 @@ static bool is_yuv_output(uint32_t bus_format)
 	case MEDIA_BUS_FMT_UYYVYY8_0_5X24:
 	case MEDIA_BUS_FMT_UYYVYY10_0_5X30:
 	case MEDIA_BUS_FMT_YUYV8_2X8:
-	case MEDIA_BUS_FMT_YUYV8_1X16:
+	case MEDIA_BUS_FMT_YVYU8_2X8:
+	case MEDIA_BUS_FMT_VYUY8_2X8:
+	case MEDIA_BUS_FMT_UYVY8_2X8:
+	case MEDIA_BUS_FMT_YVYU8_1_5X8:
+	case MEDIA_BUS_FMT_YUYV8_1_5X8:
+	case MEDIA_BUS_FMT_VYUY8_1_5X8:
+	case MEDIA_BUS_FMT_UYVY8_1_5X8:
+	case MEDIA_BUS_FMT_Y10_1X10:
+	case MEDIA_BUS_FMT_Y10_2X8_PADHI_LE:
 		return true;
 	default:
 		return false;
@@ -636,6 +652,7 @@ static bool is_yuv_support(uint32_t format)
 	case DRM_FORMAT_NV24:
 	case DRM_FORMAT_NV24_10:
 	case DRM_FORMAT_YUYV:
+	case DRM_FORMAT_YUV422:
 		return true;
 	default:
 		return false;
@@ -646,6 +663,7 @@ static bool is_yuyv_format(uint32_t format)
 {
 	switch (format) {
 	case DRM_FORMAT_YUYV:
+	case DRM_FORMAT_YUV422:
 		return true;
 	default:
 		return false;
@@ -2471,14 +2489,17 @@ vop_crtc_mode_valid(struct drm_crtc *crtc, const struct drm_display_mode *mode,
 	const struct vop_data *vop_data = vop->data;
 	int request_clock = mode->clock;
 	int clock;
+	DRM_DEV_INFO(vop->dev, "vop_crtc_mode_valid() DRM_MODE_FLAG_INTERLACE %d\n", (mode->flags & DRM_MODE_FLAG_INTERLACE));
 
 	if (mode->hdisplay > vop_data->max_output.width)
 		return MODE_BAD_HVALUE;
 
 	if ((mode->flags & DRM_MODE_FLAG_INTERLACE) &&
 	    VOP_MAJOR(vop->version) == 3 &&
-	    VOP_MINOR(vop->version) <= 2)
-		return MODE_BAD;
+	    VOP_MINOR(vop->version) <= 2) {
+		DRM_DEV_INFO(vop->dev, "DRM_MODE_FLAG_INTERLACE %d\n", (mode->flags & DRM_MODE_FLAG_INTERLACE));
+		return MODE_OK;
+		}
 
 	if (mode->flags & DRM_MODE_FLAG_DBLCLK)
 		request_clock *= 2;
@@ -2654,14 +2675,41 @@ static void vop_crtc_close(struct drm_crtc *crtc)
 	mutex_unlock(&vop->vop_lock);
 }
 
+static u32 vop_mode_done(struct vop *vop)
+{
+	return VOP_CTRL_GET(vop, out_mode);
+}
+
+static void vop_set_out_mode(struct vop *vop, u32 mode)
+{
+	int ret;
+	u32 val;
+
+	VOP_CTRL_SET(vop, out_mode, mode);
+	vop_cfg_done(vop);
+	ret = readx_poll_timeout(vop_mode_done, vop, val, val == mode,
+				 1000, 500 * 1000);
+	if (ret)
+		dev_err(vop->dev, "wait mode 0x%x timeout\n", mode);
+
+}
+
 static void vop_crtc_send_mcu_cmd(struct drm_crtc *crtc,  u32 type, u32 value)
 {
+	struct rockchip_crtc_state *state;
 	struct vop *vop = NULL;
 
 	if (!crtc)
 		return;
 
 	vop = to_vop(crtc);
+	state = to_rockchip_crtc_state(crtc->state);
+
+	/*
+	 * set output mode to P888 when start send cmd.
+	 */
+	if ((type == MCU_SETBYPASS) && value)
+		vop_set_out_mode(vop, ROCKCHIP_OUT_MODE_P888);
 	mutex_lock(&vop->vop_lock);
 	if (vop && vop->is_enabled) {
 		switch (type) {
@@ -2682,6 +2730,12 @@ static void vop_crtc_send_mcu_cmd(struct drm_crtc *crtc,  u32 type, u32 value)
 		}
 	}
 	mutex_unlock(&vop->vop_lock);
+
+	/*
+	 * restore output mode at the end
+	 */
+	if ((type == MCU_SETBYPASS) && !value)
+		vop_set_out_mode(vop, state->output_mode);
 }
 
 static const struct rockchip_crtc_funcs private_crtc_funcs = {
@@ -2702,6 +2756,9 @@ static bool vop_crtc_mode_fixup(struct drm_crtc *crtc,
 {
 	struct vop *vop = to_vop(crtc);
 	const struct vop_data *vop_data = vop->data;
+
+	// Hardcoded !!! Need to fix it set INTERLACE flag
+	adj_mode->flags = DRM_MODE_FLAG_INTERLACE; // Force write DRM_MODE_FLAG_INTERLACE flag
 
 	if (mode->hdisplay > vop_data->max_output.width)
 		return false;
@@ -2747,6 +2804,8 @@ static void vop_dither_setup(struct drm_crtc *crtc)
 		break;
 	case MEDIA_BUS_FMT_YUV8_1X24:
 	case MEDIA_BUS_FMT_UYYVYY8_0_5X24:
+	case MEDIA_BUS_FMT_UV8_1X8:
+	case MEDIA_BUS_FMT_YUYV8_1X16:
 		VOP_CTRL_SET(vop, dither_down_en, 0);
 		VOP_CTRL_SET(vop, pre_dither_down_en, 1);
 		break;
@@ -2885,14 +2944,15 @@ static void vop_crtc_atomic_enable(struct drm_crtc *crtc,
 				SYS_STATUS_LCDC1 : SYS_STATUS_LCDC0;
 	uint32_t val;
 	int act_end;
-	bool interlaced = !!(adjusted_mode->flags & DRM_MODE_FLAG_INTERLACE);
+	bool interlaced = (adjusted_mode->flags & DRM_MODE_FLAG_INTERLACE);
 	int for_ddr_freq = 0;
 	bool dclk_inv;
+	DRM_DEV_INFO(vop->dev, "flag DRM_MODE_FLAG_INTERLACE Forse set in vop_crtc_mode_fixup()");
 
 	rockchip_set_system_status(sys_status);
 	vop_lock(vop);
 	DRM_DEV_INFO(vop->dev, "Update mode to %dx%d%s%d, type: %d\n",
-		     hdisplay, vdisplay, interlaced ? "i" : "p",
+		     hdisplay, interlaced ? vdisplay*2 : vdisplay, interlaced ? "i" : "p",
 		     adjusted_mode->vrefresh, s->output_type);
 	vop_initial(crtc);
 	vop_disable_allwin(vop);
@@ -2924,6 +2984,7 @@ static void vop_crtc_atomic_enable(struct drm_crtc *crtc,
 				      "failed to set dclk's parents\n");
 	}
 
+	DRM_INFO("connector_type[%d]\n", s->output_type);
 	switch (s->output_type) {
 	case DRM_MODE_CONNECTOR_DPI:
 	case DRM_MODE_CONNECTOR_LVDS:
@@ -3217,6 +3278,7 @@ static int vop_crtc_atomic_check(struct drm_crtc *crtc,
 	int dsp_layer_sel = 0;
 	int i, j, cnt = 0, ret = 0;
 
+	//DRM_DEV_INFO(vop->dev, "vop_crtc_atomic_check\n");
 	ret = vop_afbdc_atomic_check(crtc, crtc_state);
 	if (ret)
 		return ret;

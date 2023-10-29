@@ -56,7 +56,7 @@ int main(int argc, char *argv[]) {
   int video_width = 1920;
   int video_height = 1080;
   int disp_width = 720;
-  int disp_height = 1280;
+  int disp_height = 576;
   RK_S32 s32CamId = 0;
 #ifdef RKAIQ
   RK_BOOL bMultictx = RK_FALSE;
