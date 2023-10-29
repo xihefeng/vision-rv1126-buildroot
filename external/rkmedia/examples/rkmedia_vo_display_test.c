@@ -16,7 +16,7 @@
 #include "rkmedia_api.h"
 
 #define SCREEN_WIDTH 720
-#define SCREEN_HEIGHT 1280
+#define SCREEN_HEIGHT 756
 
 static bool quit = false;
 static void sigterm_handler(int sig) {

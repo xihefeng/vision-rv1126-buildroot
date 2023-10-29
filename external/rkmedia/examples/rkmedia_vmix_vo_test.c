@@ -54,7 +54,7 @@ static void print_usage(const RK_CHAR *name) {
 int main(int argc, char *argv[]) {
   int ret = 0;
   RK_U32 u32DispWidth = 720;
-  RK_U32 u32DispHeight = 1280;
+  RK_U32 u32DispHeight = 576;
   RK_U32 u32VideWidth = 640;
   RK_U32 u32VideoHeight = 480;
   // Chn layout: 2x4

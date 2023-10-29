@@ -19,7 +19,7 @@
 
 #define ARRAY_ELEMS(a) (sizeof(a) / sizeof((a)[0]))
 #define WIDTH 720
-#define HEIGHT 1280
+#define HEIGHT 576
 
 typedef struct {
   int id;

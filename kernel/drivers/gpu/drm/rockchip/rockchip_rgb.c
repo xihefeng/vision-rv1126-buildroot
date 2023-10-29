@@ -192,11 +192,19 @@ rockchip_rgb_encoder_atomic_check(struct drm_encoder *encoder,
 	case MEDIA_BUS_FMT_SRGB888_DUMMY_4X8:
 		s->output_mode = ROCKCHIP_OUT_MODE_S888_DUMMY;
 		break;
-	case MEDIA_BUS_FMT_YUYV8_2X8:
-		s->output_mode = ROCKCHIP_OUT_MODE_BT656;
-		break;
 	case MEDIA_BUS_FMT_YUYV8_1X16:
-		s->output_mode = ROCKCHIP_OUT_MODE_BT1120;
+	case MEDIA_BUS_FMT_YUYV8_2X8:
+	case MEDIA_BUS_FMT_UV8_1X8:
+	case MEDIA_BUS_FMT_Y8_1X8:
+	case MEDIA_BUS_FMT_YVYU8_2X8:
+	case MEDIA_BUS_FMT_VYUY8_2X8:
+	case MEDIA_BUS_FMT_UYVY8_2X8:
+	case MEDIA_BUS_FMT_YVYU8_1_5X8:
+	case MEDIA_BUS_FMT_YUYV8_1_5X8:
+	case MEDIA_BUS_FMT_VYUY8_1_5X8:
+	case MEDIA_BUS_FMT_UYVY8_1_5X8:
+	case MEDIA_BUS_FMT_Y10_1X10:
+		s->output_mode = ROCKCHIP_OUT_MODE_BT656;	
 		break;
 	case MEDIA_BUS_FMT_RGB888_1X24:
 	case MEDIA_BUS_FMT_RGB666_1X24_CPADHI:
@@ -246,6 +254,7 @@ static int rockchip_rgb_bind(struct device *dev, struct device *master,
 	struct drm_connector *connector;
 	int ret;
 
+    DRM_DEV_INFO(dev, "Initialize encoder");
 	ret = drm_of_find_panel_or_bridge(dev->of_node, 1, -1,
 					  &rgb->panel, &rgb->bridge);
 	if (ret) {

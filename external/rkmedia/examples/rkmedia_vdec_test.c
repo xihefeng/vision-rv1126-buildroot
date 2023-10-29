@@ -20,7 +20,7 @@
 #define INBUF_SIZE 4096
 
 #define SCREEN_WIDTH 720
-#define SCREEN_HEIGHT 1280
+#define SCREEN_HEIGHT 576
 
 static bool quit = false;
 static void sigterm_handler(int sig) {

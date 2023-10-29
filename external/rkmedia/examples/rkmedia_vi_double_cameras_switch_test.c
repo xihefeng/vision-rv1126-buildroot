@@ -45,7 +45,7 @@ int main(int argc, char *argv[]) {
   int video_width = 1920;
   int video_hegith = 1080;
   int disp_width = 720;
-  int disp_height = 1280;
+  int disp_height = 576;
   int id = 0;
   char *iq_dir = NULL;
   int ui = 1;
