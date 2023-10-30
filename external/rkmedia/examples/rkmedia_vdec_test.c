@@ -124,7 +124,7 @@ static void print_usage() {
 int main(int argc, char *argv[]) {
   RK_CHAR *pcFileName = NULL;
   RK_U32 u32DispWidth = 720;
-  RK_U32 u32DispHeight = 1280;
+  RK_U32 u32DispHeight = 576;
   RK_BOOL bIsHardware = RK_TRUE;
   RK_U32 u32Loop = 0;
   CODEC_TYPE_E enCodecType = RK_CODEC_TYPE_H264;
