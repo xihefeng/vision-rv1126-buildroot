@@ -64,11 +64,11 @@ static const struct drm_display_mode adv739x_cvbs_mode[2] = {
 	{ DRM_MODE("NTSC 720x576", DRM_MODE_TYPE_DRIVER, 27000, 
 			720, 732, 738, 864, 0, 576, 582, 588, 625, 0,
 		   DRM_MODE_FLAG_NHSYNC | DRM_MODE_FLAG_NVSYNC ),
-		   .vrefresh = 50, 0, },
+		   .vrefresh = 50, 0, .private_flags = DRM_MODE_FLAG_INTERLACE},
 	{ DRM_MODE("PAL 720x480", DRM_MODE_TYPE_DRIVER, 27000, 720, 736,
 		   742, 858, 0, 480, 486, 492, 529, 0,
 		   DRM_MODE_FLAG_NHSYNC | DRM_MODE_FLAG_NVSYNC),
-		   .vrefresh = 60, 0, },
+		   .vrefresh = 60, 0, .private_flags = DRM_MODE_FLAG_INTERLACE},
 };
 
 struct adv739x_reg_val {
@@ -579,6 +579,11 @@ static int adv739x_get_modes(struct drm_connector *connector)
 	int count;
 	u32 bus_format = MEDIA_BUS_FMT_VYUY8_2X8; // format YCbCr 
 	struct adv739x_state *adv739x = connector_to_adv739x(connector);
+	
+	if (!adv739x->dev) {
+		printk(KERN_ERR "Parent object not found\n");
+		return -ENODEV;
+	}
 
 	dev_info(adv739x->dev, "Get modes of bridge\n");
 
@@ -676,6 +681,11 @@ static int adv739x_bridge_attach(struct drm_bridge *bridge)
 	int ret = 0;
 	struct adv739x_state *adv739x = bridge_to_adv739x(bridge);
 
+	if (!adv739x->dev) {
+		printk(KERN_ERR "Parent object not found\n");
+		return -ENODEV;
+	}
+
 	dev_info(adv739x->dev, "Bridge attach \n");
 
 	if (!bridge->encoder) {
@@ -759,7 +769,15 @@ static int adv739x_probe(struct i2c_client *client,
 		state->devdata = of_id->data;
 	} else
 		state->devdata = &adv739x_info[ADV7393];
-		
+
+	// conect to DRM bridge 
+	state->bridge.funcs = &adv739x_bridge_funcs;
+	state->bridge.of_node = client->dev.of_node;
+	state->dev = &client->dev;
+
+	dev_info(dev, "add DRM bridge\n");
+	drm_bridge_add(&state->bridge);
+	i2c_set_clientdata(client, state);
 
 	v4l_info(client, "detecting %s @ 0x%x (%s)\n", state->devdata->name,
 		 client->addr << 1, client->adapter->name);
@@ -803,10 +821,10 @@ static int adv739x_probe(struct i2c_client *client,
 				       ADV739X_GAIN_DEF);
 	state->sd.ctrl_handler = &state->hdl;
 	if (state->hdl.error) {
-		int err = state->hdl.error;
+		err = state->hdl.error;
 
 		v4l2_ctrl_handler_free(&state->hdl);
-		return err;
+		return 0;
 	}
 	v4l2_ctrl_handler_setup(&state->hdl);
 
@@ -814,16 +832,7 @@ static int adv739x_probe(struct i2c_client *client,
 	if (err)
 		v4l2_ctrl_handler_free(&state->hdl);
 
-	// add conect to DRM bridge 
-	state->bridge.funcs = &adv739x_bridge_funcs;
-	state->bridge.of_node = client->dev.of_node;
-	state->dev = &client->dev;
-
-	drm_bridge_add(&state->bridge);
-	i2c_set_clientdata(client, state);
-	dev_dbg(state->dev, "adv739x probe ok\n");
-
-	return err;
+	return 0;
 }
 
 static int adv739x_remove(struct i2c_client *client)
