@@ -53,7 +53,7 @@ int main(int argc, char *argv[]) {
   RK_U32 u32Fps = 0;
   RK_U32 u32Zpos = 0;
   RK_U32 u32DispWidth = 720;
-  RK_U32 u32DispHeight = 1280;
+  RK_U32 u32DispHeight = 576;
   RK_FLOAT fltImgRatio = 0.0;
   RK_U32 u32FrameSize = 0;
   int ret = 0;
