@@ -61,11 +61,11 @@ enum {
 };
 
 static const struct drm_display_mode adv739x_cvbs_mode[2] = {
-	{ DRM_MODE("NTSC 720x576", DRM_MODE_TYPE_DRIVER, 27000, 
+	{ DRM_MODE("720x576", DRM_MODE_TYPE_DRIVER, 27000, 
 			720, 732, 738, 864, 0, 576, 582, 588, 625, 0,
 		   DRM_MODE_FLAG_NHSYNC | DRM_MODE_FLAG_NVSYNC ),
 		   .vrefresh = 50, 0, .private_flags = DRM_MODE_FLAG_INTERLACE},
-	{ DRM_MODE("PAL 720x480", DRM_MODE_TYPE_DRIVER, 27000, 720, 736,
+	{ DRM_MODE("720x480", DRM_MODE_TYPE_DRIVER, 27000, 720, 736,
 		   742, 858, 0, 480, 486, 492, 529, 0,
 		   DRM_MODE_FLAG_NHSYNC | DRM_MODE_FLAG_NVSYNC),
 		   .vrefresh = 60, 0, .private_flags = DRM_MODE_FLAG_INTERLACE},
