@@ -2257,8 +2257,8 @@ void rkisp_chk_tb_over(struct rkisp_device *isp_dev)
 	resmem_va = phys_to_virt(isp_dev->resmem_pa);
 	head = (struct rkisp_thunderboot_resmem_head *)resmem_va;
 	if (isp_dev->hw_dev->is_thunderboot) {
-		shm_head_poll_timeout(isp_dev, !!head->enable, 2000, 200 * USEC_PER_MSEC);
-		shm_head_poll_timeout(isp_dev, !!head->complete, 5000, 500 * USEC_PER_MSEC);
+		shm_head_poll_timeout(isp_dev, !!head->enable, 1000, 200 * USEC_PER_MSEC);
+		shm_head_poll_timeout(isp_dev, !!head->complete, 2000, 500 * USEC_PER_MSEC);
 		if (head->complete != RKISP_TB_OK)
 			v4l2_info(&isp_dev->v4l2_dev,
 				  "wait thunderboot over timeout\n");

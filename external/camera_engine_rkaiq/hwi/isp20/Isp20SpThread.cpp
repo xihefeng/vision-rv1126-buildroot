@@ -460,7 +460,7 @@ Isp20SpThread::kg_proc_loop ()
         _buf_list_mutex.lock();
         if (_isp_buf_list.empty()) {
             _buf_list_mutex.unlock();
-            usleep(1000);
+            usleep(500);
             if (!is_running())
                 break;
         } else {
@@ -754,11 +754,11 @@ Isp20SpThread::loop () {
     LOG1_CAMHW_SUBM(MOTIONDETECT_SUBM, "%s enter", __FUNCTION__);
     if (_fd_init_flag) {
         if (!_isp_buf_num && !init_fbcbuf_fd()) {
-            usleep(1000);
+            usleep(500);
             return true;
         }
         if (!_ispp_buf_num && !init_tnrbuf_fd()) {
-            usleep(1000);
+            usleep(500);
             return true;
         }
         thread_bind_cpu(3);
@@ -799,7 +799,7 @@ Isp20SpThread::loop () {
     {
         if (!is_running())
             break;
-        usleep(1000);
+        usleep(500);
     }
 
     if (_calibDb->af.ldg_param.enable)
