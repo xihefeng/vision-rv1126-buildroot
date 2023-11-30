@@ -292,7 +292,7 @@ void SocketServer::Accepted() {
         break;
     } else if (poll_ret <= 0) {
         LOGW("poll socket got error(0x%x) but continue\n");
-        ::usleep (10000); // 10ms
+        ::usleep (500); // 10ms
         continue;
     }
     client_socket = accept(sockfd, (struct sockaddr *)&clientAddress, &sosize);

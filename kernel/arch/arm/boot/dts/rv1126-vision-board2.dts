@@ -51,6 +51,9 @@
 	//size = <0x10000000>;//256M and need 4M align
 };
 
+&rkispp_vir2 {
+       status = "okay";
+};
 
 &npu {
 	npu-supply = <&vdd_npu_vepu>;

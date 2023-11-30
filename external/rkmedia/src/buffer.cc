@@ -608,7 +608,7 @@ BufferPool::~BufferPool() {
       RKMEDIA_LOGE("BufferPool: waiting bufferpool free for 900ms, TimeOut!\n");
       break;
     }
-    easymedia::usleep(30000); // wait 30ms
+    easymedia::usleep(500); // wait 30ms
   }
 
   MediaGroupBuffer *mgb = NULL;

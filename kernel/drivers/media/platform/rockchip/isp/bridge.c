@@ -1092,7 +1092,7 @@ static int bridge_stop(struct rkisp_bridge_device *dev)
 	if (dev->work_mode & ISP_ISPP_QUICK) {
 		rkisp_clear_bits(dev->ispdev, MI_IMSC,
 				 dev->cfg->frame_end_id, true);
-		usleep_range(20000, 25000);
+		usleep_range(10000, 15000); // 
 	}
 	return 0;
 }

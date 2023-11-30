@@ -516,7 +516,7 @@ PollThread::poll_subdev_event_loop ()
 
     if (poll_ret < 0) {
         XCAM_LOG_WARNING ("poll event failed but continue");
-        ::usleep (1000); // 1ms
+        ::usleep (100); // 1ms
         return XCAM_RETURN_ERROR_TIMEOUT;
     }
 
@@ -592,7 +592,7 @@ PollThread::poll_buffer_loop (int type)
 
     if (poll_ret <= 0) {
         XCAM_LOG_DEBUG ("poll %s buffer event got error(0x%x) but continue\n", isp_poll_type_to_str[type], poll_ret);
-        ::usleep (100000); // 100ms
+        ::usleep (100); // 100ms
         return XCAM_RETURN_ERROR_TIMEOUT;
     }
 
