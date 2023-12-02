@@ -9,7 +9,7 @@
 
 
 / {
-	model = "Rockchip RV1126 Vision board ver 1.1";
+	model = "RV1126 Vision board";
 	compatible = "rockchip,rv1126-evb-ddr3-v13", "rockchip,rv1126";
 
 	chosen {
@@ -30,6 +30,70 @@
             default-state = "off";
         };
     };
+
+	// OSD pads for connect joystick
+	adc_keys: adc-keys
+	{
+		compatible = "adc-keys";
+		io-channels = <&saradc 5>;
+		io-channel-names = "buttons";
+		keyup-threshold-microvolt = <1800000>;
+		poll-interval = <100>;
+
+		up-key {
+			label = "up";
+			linux,code = <KEY_UP>;
+			press-threshold-microvolt = <1109000>;
+		};
+
+		down-key {
+			label = "down";
+			linux,code = <KEY_DOWN>;
+			press-threshold-microvolt = <163000>;
+		};
+
+		left-key {
+			label = "left";
+			linux,code = <KEY_LEFT>;
+			press-threshold-microvolt = <1325000>;
+		};
+
+		right-key {
+			label = "right";
+			linux,code = <KEY_RIGHT>;
+			press-threshold-microvolt = <787000>;
+		};
+
+		enter-key {
+			label = "enter";
+			linux,code = <KEY_ENTER>;
+			press-threshold-microvolt = <1477000>;
+		};
+	};
+
+
+};
+
+&saradc {
+	status = "okay";
+	vref-supply = <&vcc_1v8>;
+};
+
+// PWM outputs 
+&pwm0 {
+	status = "okay";
+};
+
+&pwm1 {
+	status = "okay";
+};
+
+&pwm4 {
+	status = "okay";
+};
+
+&pwm5 {
+	status = "okay";
 };
 
 &uart0 {
@@ -70,6 +134,28 @@
 	rockchip,baudrate = <115200>;
 };
 
+&i2c3 {
+	/delete-property/ pinctrl-0;
+	status = "okay";
+	clock-frequency = <400000>;
+	pinctrl-0 = <&i2c3m0_xfer>;
+
+	// TODO: need to check address 
+	icm20602@68 {
+		status = "okay";
+		compatible = "invensense,icm20602";
+		reg = <0x68>;
+		irq-gpio = <&gpio3 RK_PB1 IRQ_TYPE_EDGE_RISING>;
+		mpu-debug = <1>;
+	};
+
+	// TODO: need to check address 
+	bmp280: pressure@76 {
+		compatible = "bosch,bmp280";
+		reg = <0x76>;
+	};
+};
+
 
 &i2c5 {
 	/delete-property/ pinctrl-0;
@@ -77,10 +163,10 @@
 	clock-frequency = <400000>;
 	pinctrl-0 = <&i2c5m2_xfer>;
 
-	adv7393: adv7393@6a {
-		compatible = "adi,adv7390";
+	adv7393: adv7393@2a {
+		compatible = "adi,adv7391";
 		reset-gpios = <&gpio1 RK_PC1 GPIO_ACTIVE_HIGH>;
-		reg = <0x6a>;
+		reg = <0x2a>;
 
 		ports {
 			#address-cells = <1>;
