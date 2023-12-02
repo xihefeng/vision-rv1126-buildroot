@@ -4,13 +4,14 @@
 #
 ################################################################################
 
-VISION_SERVICES_VERSION = 0.0.17
+VISION_SERVICES_VERSION = 0.0.18
 VISION_SERVICES_SITE = ssh://git@gitlab.hard-tech.org.ua/vision/vision-services.git
 VISION_SERVICES_SITE_METHOD = git
 VISION_SERVICES_INSTALL_STAGING = NO
 VISION_SERVICES_INSTALL_TARGET = YES
 
-VISION_SERVICES_CONF_OPTS += -DCMAKE_BUILD_TYPE=Release
+# TODO: need to change to Release
+VISION_SERVICES_CONF_OPTS += -DCMAKE_BUILD_TYPE=Debug
 
 # all dependencies 
 VISION_SERVICES_DEPENDENCIES = host-pkgconf syslog-ng rk_oem
