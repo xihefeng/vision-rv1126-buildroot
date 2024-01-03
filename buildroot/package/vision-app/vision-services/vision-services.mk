@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-VISION_SERVICES_VERSION = 0.0.19
+VISION_SERVICES_VERSION = 0.0.20
 VISION_SERVICES_SITE = ssh://git@gitlab.hard-tech.org.ua/vision/vision-services.git
 VISION_SERVICES_SITE_METHOD = git
 VISION_SERVICES_INSTALL_STAGING = NO
@@ -40,12 +40,15 @@ endif
 ifeq ($(BR2_PACKAGE_VISION_DETECTION_SERVICE),y)
 	VISION_SERVICES_CONF_OPTS += "-DBUILD_DETECTION_SERVICE=ON"
 	VISION_SERVICES_DEPENDENCIES += rknpu
+	VISION_SERVICES_ENCRYPT_LIST += oem/usr/bin/vision-detection-service
+	VISION_SERVICES_ENCRYPT_LIST += etc/init.d/S99vision-detection-service
 else
 	VISION_SERVICES_CONF_OPTS += "-DBUILD_DETECTION_SERVICE=OFF"
 endif
 
 ifeq ($(BR2_PACKAGE_VISION_TRACKER_SERVICE),y)
 	VISION_SERVICES_CONF_OPTS += "-DBUILD_TRACKER_SERVICE=ON"
+	VISION_SERVICES_ENCRYPT_LIST += oem/usr/bin/vision-tracker-service
 else
 	VISION_SERVICES_CONF_OPTS += "-DBUILD_TRACKER_SERVICE=OFF"
 endif
@@ -111,6 +114,34 @@ define VISION_SERVICES_INSTALL_FONTS
 	$(INSTALL) -D -m  644 $(@D)/assets/fonts/* "${BR2_PACKAGE_RK_OEM_INSTALL_TARGET_DIR}/fonts/" 
 endef
 
+
+define VIS_SEC_PREPARE
+	@echo ">> Prepare $(1)"
+	mkdir -p "/tmp/vision_security/$(dir $(1))" "/tmp/vision_security/tmp/vision_security/$(dir $(1))"
+
+	[ -n "$(filter oem/%,$(1))" ] && mv "${BR2_PACKAGE_RK_OEM_INSTALL_TARGET_DIR}/$(subst oem/,,$(1))" "/tmp/vision_security/tmp/vision_security/$(1)" || \
+					 mv "${TARGET_DIR}/$(1)" "/tmp/vision_security/tmp/vision_security/$(1)"
+	ln -s "/tmp/vision_security/$(1)" "/tmp/vision_security/$(dir $(1))"
+	@echo ">> Done"
+endef
+
+define VISION_SERVICES_ENCRYPT_SERVICES
+	@echo "> Vision_security"
+	rm -rf /tmp/vision_security
+
+	$(foreach svc,$(VISION_SERVICES_ENCRYPT_LIST),$(call VIS_SEC_PREPARE,$(svc)))
+
+	$(call VIS_SEC_PREPARE,oem/ai_model/default_model.rknn)
+
+	tar cvzf /tmp/vision_security.tar.gz -C /tmp/vision_security/ .
+	cd "${TOPDIR}/../tools/Security"; ./encrypt.sh /tmp/vision_security.tar.gz "${BR2_PACKAGE_RK_OEM_INSTALL_TARGET_DIR}/assets/vs.bin"
+	$(INSTALL) -D -m  644 "${TOPDIR}/../tools/Security/vision_public.pem" "${BR2_PACKAGE_RK_OEM_INSTALL_TARGET_DIR}/assets/"
+	$(INSTALL) -D -m  644 "${TOPDIR}/../tools/Security/pass_pub.txt" "${BR2_PACKAGE_RK_OEM_INSTALL_TARGET_DIR}/assets/"
+	$(INSTALL) -D -m  774 "${TOPDIR}/../tools/Security/activate_vision.sh" "${TARGET_DIR}/usr/bin/av"
+	@echo "> Vision_security - Done"
+endef
+
+
 VISION_SERVICES_POST_INSTALL_TARGET_HOOKS += VISION_SERVICES_INSTALL_CONFIG
 
 VISION_SERVICES_POST_INSTALL_TARGET_HOOKS += VISION_SERVICES_INSTALL_ASSETS
@@ -120,5 +151,9 @@ VISION_SERVICES_POST_INSTALL_TARGET_HOOKS += VISION_SERVICES_INSTALL_SCRIPTS
 VISION_SERVICES_POST_INSTALL_TARGET_HOOKS += VISION_SERVICES_INSTALL_AI_MODEL
 
 VISION_SERVICES_POST_INSTALL_TARGET_HOOKS += VISION_SERVICES_INSTALL_FONTS
+
+ifeq ($(BR2_PACKAGE_VISION_ENCRYPTED),y)
+	VISION_SERVICES_POST_INSTALL_TARGET_HOOKS += VISION_SERVICES_ENCRYPT_SERVICES
+endif
 
 $(eval $(cmake-package))

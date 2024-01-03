@@ -111,8 +111,9 @@
 };
 
 &isp_reserved {
-	size = <0x6000000>;
+	//size = <0x6000000>;
 	//size = <0x10000000>;//256M and need 4M align
+	size = <0xA000000>;
 };
 
 &rkispp_vir2 {
@@ -371,7 +372,7 @@
 
 &rkisp_vir0 {
 	status = "okay";
-	wait-line = <720>;
+//	wait-line = <720>;
 	ports {
 		#address-cells = <1>;
 		#size-cells = <0>;
@@ -400,7 +401,7 @@
 
 &rkisp_vir1 {
 	status = "okay";
-	wait-line = <720>;
+//	wait-line = <720>;
 	ports {
 		#address-cells = <1>;
 		#size-cells = <0>;
@@ -441,7 +442,7 @@
 
 &rkispp_vir0 {
 	status = "okay";
-	wait-line = <1280>;
+//	wait-line = <1280>;
 	port {
 		#address-cells = <1>;
 		#size-cells = <0>;
@@ -455,7 +456,7 @@
 
 &rkispp_vir1 {
 	status = "okay";
-	wait-line = <1280>;
+//	wait-line = <1280>;
 	port {
 		#address-cells = <1>;
 		#size-cells = <0>;
