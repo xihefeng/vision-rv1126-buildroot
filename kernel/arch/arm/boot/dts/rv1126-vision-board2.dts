@@ -270,8 +270,8 @@
 		rockchip,camera-module-lens-name = "28IRC-4M-F22-v1.0x23";
 
 		port {
-			mipi_out_ucam0: endpoint {
-				remote-endpoint = <&mipi_in_ucam0>;
+			mipi_csi_0_out_gc4663: endpoint {
+				remote-endpoint = <&mipi_csi_0_in_gc4663>;
 				data-lanes = <1 2>;
 			};
 		};
@@ -323,8 +323,8 @@
 		rockchip,camera-module-lens-name = "28IRC-4M-F22-v1.0x23";
 
 		port {
-			mipi_out_ucam1: endpoint {
-				remote-endpoint = <&mipi_in_ucam1>;
+			mipi_csi_1_out_gc4663_2: endpoint {
+				remote-endpoint = <&mipi_csi_1_in_gc4663_2>;
 				data-lanes = <1 2>; // used 2 lanes
 			};
 		};
@@ -348,8 +348,8 @@
 		rockchip,camera-module-name = "MTV4-IR-E-P";
 		rockchip,camera-module-lens-name = "40IRC-4MP-F16";
 		port {
-			mipi_out_imx307: endpoint {
-				remote-endpoint = <&mipi_in_imx307>;
+			mipi_csi_1_out_imx307: endpoint {
+				remote-endpoint = <&mipi_csi_1_in_imx307>;
 				data-lanes = <1 2 3 4>; // 4 lanes
 			};
 		};
@@ -367,10 +367,10 @@
 			reg = <0>;
 			#address-cells = <1>;
 			#size-cells = <0>;
-			mipi_in_ucam0: endpoint@0 {
+			mipi_csi_0_in_gc4663: endpoint@0 {
 				reg = <0>;
 				// The port name of the sensor
-				remote-endpoint = <&mipi_out_ucam0>;
+				remote-endpoint = <&mipi_csi_0_out_gc4663>;
 				data-lanes = <1 2>;
 			};
 
@@ -405,17 +405,17 @@
 			reg = <0>;
 			#address-cells = <1>;
 			#size-cells = <0>;
-			mipi_in_ucam1: endpoint@0 {
+			mipi_csi_1_in_gc4663_2: endpoint@0 {
 				reg = <0>;
 				// The port name of the sensor
-				remote-endpoint = <&mipi_out_ucam1>;
+				remote-endpoint = <&mipi_csi_1_out_gc4663_2>;
 				data-lanes = <1 2>; // used 2 lanes
 			};
 
-			mipi_in_imx307: endpoint@1 {
+			mipi_csi_1_in_imx307: endpoint@1 {
 				reg = <1>;
 				// The port name of the sensor
-				remote-endpoint = <&mipi_out_imx307>;
+				remote-endpoint = <&mipi_csi_1_out_imx307>;
 				data-lanes = <1 2 3 4>; // used 4 lanes
 			};
 		};
