@@ -260,11 +260,14 @@ else
 	fi
 fi
 
-OEM_VERSION=$(cat "$TARGET_OUTPUT_DIR/oem/etc/vision/version")
-if [ -d $ROCKDEV ] && [ -f $ROCKDEV/oem.img ]; then
-	cp $ROCKDEV/oem.img $ROCKDEV/VISION_OEM_${OEM_VERSION}.img
+if [ -e "$TARGET_OUTPUT_DIR/oem/etc/vision/version" ]; then
+    OEM_VERSION=$(cat "$TARGET_OUTPUT_DIR/oem/etc/vision/version")
+	if [ -d $ROCKDEV ] && [ -f $ROCKDEV/oem.img ]; then
+		cp $ROCKDEV/oem.img $ROCKDEV/VISION_OEM_${OEM_VERSION}.img
+	fi
+else 
+    echo "File does not exist"
 fi
-
 
 if [ $RK_USERDATA_DIR ]
 then
