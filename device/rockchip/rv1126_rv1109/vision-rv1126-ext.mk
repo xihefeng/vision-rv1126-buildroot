@@ -10,7 +10,7 @@ export RK_KERNEL_DEFCONFIG=rv1126_vision_defconfig
 # Kernel dts
 export RK_KERNEL_DTS=rv1126-vision-board2
 # Buildroot config
-export RK_CFG_BUILDROOT=rockchip_rv1126_ext_vision
+export RK_CFG_BUILDROOT=rockchip_rv1126_vision_ext
 # Recovery config
 export RK_CFG_RECOVERY=rockchip_rv1126_vision_recovery
 # Set rootfs type, including ext2 ext4 squashfs
