@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-VISION_SERVICES_VERSION = 0.4.2
+VISION_SERVICES_VERSION =  0.5.0
 VISION_SERVICES_SITE = ssh://git@gitlab.hard-tech.org.ua/vision/vision-services.git
 VISION_SERVICES_SITE_METHOD = git
 VISION_SERVICES_INSTALL_STAGING = NO
@@ -41,7 +41,7 @@ ifeq ($(BR2_PACKAGE_VISION_DETECTION_SERVICE),y)
 	VISION_SERVICES_CONF_OPTS += "-DBUILD_DETECTION_SERVICE=ON"
 	VISION_SERVICES_DEPENDENCIES += rknpu
 	VISION_SERVICES_ENCRYPT_LIST += oem/usr/bin/vision-detection-service
-	VISION_SERVICES_ENCRYPT_LIST += etc/init.d/S99vision-detection-service
+	VISION_SERVICES_ENCRYPT_LIST += oem/usr/init.d/S99vision-detection-service
 else
 	VISION_SERVICES_CONF_OPTS += "-DBUILD_DETECTION_SERVICE=OFF"
 endif
@@ -84,9 +84,20 @@ else
 	VISION_SERVICES_CONF_OPTS += "-DBUILD_OSD_SERVICE=OFF"
 endif
 
+ifeq ($(BR2_PACKAGE_VISION_WEBUI_SERVICE),y)
+	VISION_SERVICES_CONF_OPTS += "-DBUILD_WEBUI_SERVICE=ON"
+	VISION_SERVICES_POST_INSTALL_TARGET_HOOKS += VISION_SERVICES_INSTALL_WWW
+else
+	VISION_SERVICES_CONF_OPTS += "-DBUILD_WEBUI_SERVICE=OFF"
+endif
+
+define VISION_SERVICES_INSTALL_WWW
+	mkdir -p ${BR2_PACKAGE_RK_OEM_INSTALL_TARGET_DIR}/var/www/html
+	$(INSTALL) -D -m  644 $(@D)/src/services/webui/html/* ${BR2_PACKAGE_RK_OEM_INSTALL_TARGET_DIR}/var/www/html
+endef
 
 define VISION_SERVICES_INSTALL_CONFIG
-	$(INSTALL) -D -m  644 $(@D)/assets/default_config.ini ${BR2_PACKAGE_RK_OEM_INSTALL_TARGET_DIR}/etc/vision/config.ini  
+	$(INSTALL) -D -m  644 $(@D)/assets/default_config.json ${BR2_PACKAGE_RK_OEM_INSTALL_TARGET_DIR}/etc/vision/config.json
 endef
 
 define VISION_SERVICES_INSTALL_ASSETS
@@ -98,10 +109,10 @@ endef
 
 define VISION_SERVICES_INSTALL_SCRIPTS
 	$(INSTALL) -D -m  755 $(@D)/assets/init.d/* "${TARGET_DIR}/etc/init.d/"
-	$(INSTALL) -D -m  755 $(@D)/assets/osd_menu_nav.sh "${TARGET_DIR}/usr/bin/osd_menu_nav.sh"
 endef
 
 define VISION_SERVICES_INSTALL_AI_MODEL
+	mkdir -p ${BR2_PACKAGE_RK_OEM_INSTALL_TARGET_DIR}/ai_model/
 	$(INSTALL) -D -m  644 $(@D)/assets/ai_model/* ${BR2_PACKAGE_RK_OEM_INSTALL_TARGET_DIR}/ai_model/
 endef
 
@@ -145,6 +156,8 @@ define VISION_SERVICES_ENCRYPT_SERVICES
 	$(foreach svc,$(VISION_SERVICES_ENCRYPT_LIST),$(call VIS_SEC_PREPARE,$(svc)))
 
 	$(call VIS_SEC_PREPARE,oem/ai_model/default_model.rknn)
+	$(call VIS_SEC_PREPARE,oem/ai_model/yolov7_tiny.rknn)
+	$(call VIS_SEC_PREPARE,oem/ai_model/default_anchors.txt)
 
 	tar cvzf /tmp/vision_security.tar.gz -C /tmp/vision_security/ .
 	cd "${TOPDIR}/../tools/Security"; ./encrypt.sh /tmp/vision_security.tar.gz "${BR2_PACKAGE_RK_OEM_INSTALL_TARGET_DIR}/assets/vs.bin"
