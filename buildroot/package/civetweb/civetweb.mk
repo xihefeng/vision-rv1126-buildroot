@@ -46,6 +46,8 @@ define CIVETWEB_INSTALL_TARGET_CMDS
 		COPT='$(CIVETWEB_COPT)'
 	# Install shared library to the target's /usr/lib directory
     $(TARGET_CONFIGURE_OPTS) $(INSTALL) -D -m 0755 $(@D)/libcivetweb.so $(TARGET_DIR)/usr/lib/libcivetweb.so
+	# Create a symbolic link for the shared library
+	$(TARGET_CONFIGURE_OPTS) ln -sf /usr/lib/libcivetweb.so $(TARGET_DIR)/usr/lib/libcivetweb.so.1
     # Optional: If there are additional headers, install them to /usr/include
     $(TARGET_CONFIGURE_OPTS) $(INSTALL) -D -m 0644 $(@D)/include/civetweb.h $(TARGET_DIR)/usr/include/civetweb.h
 endef
