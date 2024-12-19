@@ -11,6 +11,12 @@
  * by adding changes at end of this file.
  */
 &pinctrl {
+	icm20602 {
+		/omit-if-no-ref/
+		icm20602_irq_gpio: icm20602-irq-gpio {
+			rockchip,pins = <3 RK_PB1 RK_FUNC_GPIO &pcfg_pull_none>;
+		};
+	};
 	a7 {
 		/omit-if-no-ref/
 		a7m0_pins: a7m0-pins {
