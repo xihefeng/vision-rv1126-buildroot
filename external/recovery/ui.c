@@ -29,11 +29,13 @@
 #include "minui/minui.h"
 #include "recovery_ui.h"
 
-#define MAX_COLS 96
-#define MAX_ROWS 32
+#define MAX_COLS (96/2)
+#define MAX_ROWS (32/2)
 
 #define CHAR_WIDTH 10
 #define CHAR_HEIGHT 18
+
+#define SHIFT_Y   30
 
 #define PROGRESSBAR_INDETERMINATE_STATES 6
 #define PROGRESSBAR_INDETERMINATE_FPS 15
@@ -103,7 +105,7 @@ static void draw_background_locked(gr_surface icon)
         int iconWidth = gr_get_width(icon);
         int iconHeight = gr_get_height(icon);
         int iconX = (gr_fb_width() - iconWidth) / 2;
-        int iconY = (gr_fb_height() - iconHeight) / 2;
+        int iconY = SHIFT_Y;
         gr_blit(icon, 0, 0, iconWidth, iconHeight, iconX, iconY);
     }
 }
@@ -119,7 +121,7 @@ static void draw_progress_locked()
     int height = gr_get_height(gProgressBarEmpty);
 
     int dx = (gr_fb_width() - width)/2;
-    int dy = (3*gr_fb_height() + iconHeight - 2*height)/4;
+    int dy = gr_get_width(gBackgroundIcon[BACKGROUND_ICON_INSTALLING]) + SHIFT_Y;
 
     // Erase behind the progress bar (in case this was a progress-only update)
     gr_color(0, 0, 0, 255);
@@ -332,7 +334,7 @@ int ui_init(void)
     ev_init((ev_callback)input_callback, NULL);
 
     text_col = text_row = 0;
-    text_rows = gr_fb_height() / CHAR_HEIGHT;
+    text_rows = SHIFT_Y;
     if (text_rows > MAX_ROWS) text_rows = MAX_ROWS;
     text_top = 1;
 

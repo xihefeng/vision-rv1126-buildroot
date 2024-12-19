@@ -891,7 +891,7 @@ main(int argc, char **argv) {
 
     strcpy(systemFlag, "false");
     int arg;
-    while ((arg = getopt_long(argc, argv, "", OPTIONS, NULL)) != -1) {
+    while ((arg = getopt_long(argc, argv, "psuwaetf?", OPTIONS, NULL)) != -1) {
         switch (arg) {
         case 'p': previous_runs = atoi(optarg); break;
         case 's': send_intent = optarg; break;
